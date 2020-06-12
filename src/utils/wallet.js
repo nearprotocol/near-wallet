@@ -30,6 +30,9 @@ const ACCOUNT_ID_REGEX = /^(([a-z\d]+[-_])*[a-z\d]+\.)*([a-z\d]+[-_])*[a-z\d]+$/
 export const ACCOUNT_CHECK_TIMEOUT = 500
 export const TRANSACTIONS_REFRESH_INTERVAL = 10000
 
+// TODO: Use similar check for in-app views on iOS to offer opening in Safari?
+export const IS_MOBILE_APP = window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.signer;
+
 async function setKeyMeta(publicKey, meta) {
     localStorage.setItem(`keyMeta:${publicKey}`, JSON.stringify(meta))
 }
@@ -83,6 +86,12 @@ class Wallet {
                 return inMemorySigner.signMessage(message, accountId, networkId)
             }
         }
+
+        if (IS_MOBILE_APP) {
+            const { MobileSigner } = require('./mobile-signer');
+            this.signer = new MobileSigner();
+        }
+
         this.connection = nearApiJs.Connection.fromConfig({
             networkId: NETWORK_ID,
             provider: { type: 'JsonRpcProvider', args: { url: NODE_URL + '/' } },
@@ -213,23 +222,22 @@ class Wallet {
 
     async createNewAccount(accountId, fundingKey, fundingContract) {
         this.checkNewAccount(accountId);
-        const keyPair = nearApiJs.KeyPair.fromRandom('ed25519');
 
+        const publicKey = await this.signer.createKey(accountId, NETWORK_ID);
         if (fundingKey && fundingContract) {
-            await this.createNewAccountLinkdrop(accountId, fundingKey, fundingContract, keyPair);
+            await this.createNewAccountLinkdrop(accountId, fundingKey, fundingContract, publicKey);
             await this.keyStore.removeKey(NETWORK_ID, fundingContract)
-
         } else {
             await sendJson('POST', CONTRACT_CREATE_ACCOUNT_URL, {
                 newAccountId: accountId,
-                newAccountPublicKey: keyPair.publicKey.toString()
+                newAccountPublicKey: publicKey.toString()
             })
         }
-        await this.saveAndSelectAccount(accountId, keyPair);
 
+        await this.saveAndSelectAccount(accountId);
     }
 
-    async createNewAccountLinkdrop(accountId, fundingKey, fundingContract, keyPair) {
+    async createNewAccountLinkdrop(accountId, fundingKey, fundingContract, publicKey) {
         const account = this.getAccount(fundingContract);
 
         await this.keyStore.setKey(
@@ -241,15 +249,13 @@ class Wallet {
             changeMethods: ['create_account_and_claim', 'claim'],
             sender: fundingContract
         });
-        const publicKey = keyPair.publicKey.toString().replace('ed25519:', '');
         await contract.create_account_and_claim({
             new_account_id: accountId,
-            new_public_key: publicKey
+            new_public_key: publicKey.toString().replace('ed25519:', '')
         });
     }
 
-    async saveAndSelectAccount(accountId, keyPair) {
-        await this.keyStore.setKey(NETWORK_ID, accountId, keyPair)
+    async saveAndSelectAccount(accountId) {
         this.accounts[accountId] = true
         this.accountId = accountId
         this.save()
@@ -405,10 +411,10 @@ class Wallet {
         await tempKeyStore.setKey(NETWORK_ID, accountId, keyPair)
 
         // generate new keypair for this browser
-        const newKeyPair = nearApiJs.KeyPair.fromRandom('ed25519')
-        await account.addKey(newKeyPair.publicKey)
+        const publicKey = await this.signer.createKey(accountId, NETWORK_ID);
+        await account.addKey(publicKey)
 
-        await this.saveAndSelectAccount(accountId, newKeyPair)
+        await this.saveAndSelectAccount(accountId)
     }
 
     async signAndSendTransactions(transactions, accountId) {
