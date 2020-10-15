@@ -17,7 +17,13 @@
                 "create": "Checking availability",
                 "check": "Checking"
             },
-            "errorAccountNotExist": "There was a problem creating your account. Please try again!"
+            "errorAccountNotExist": "There was a problem creating your account. Please try again!",
+            "addAccessKey": {
+                "error": "Sorry an error has occurred.<br />Your account is safe. Please recover it using seed phrase that you have just confirmed."
+            }
+        },
+        "addAccessKey": {
+            "error": "Sorry an error has occurred.<br />Adding Seed phrase recover faild. Please try again."
         },
         "available": {
             "success": "User found.",

@@ -8,6 +8,7 @@ import {
     WALLET_CREATE_NEW_ACCOUNT_URL, WALLET_CREATE_NEW_ACCOUNT_FLOW_URLS, WALLET_LOGIN_URL, WALLET_SIGN_URL,
 } from '../utils/wallet'
 import { KeyPair } from 'near-api-js'
+import { WalletError } from '../utils/walletError'
 
 export const loadRecoveryMethods = createAction('LOAD_RECOVERY_METHODS',
     wallet.getRecoveryMethods.bind(wallet),
@@ -95,7 +96,10 @@ const checkContractId = () => async (dispatch, getState) => {
     }
 }
 
-export const redirectTo = (location) => (dispatch) => dispatch(push({ pathname: location }))
+export const redirectTo = (location, state) => (dispatch) => dispatch(push({ 
+    pathname: location,
+    state
+}))
 
 export const redirectToProfile = () => (dispatch) => dispatch(push({ pathname: '/profile' }))
 
@@ -301,12 +305,27 @@ export const { getAccessKeys, removeAccessKey, addLedgerAccessKey, connectLedger
 })
 
 export const handleAddAccessKeySeedPhrase = (accountId, recoveryKeyPair) => async (dispatch) => {
-    await dispatch(addAccessKeySeedPhrase(accountId, recoveryKeyPair))
-    dispatch(redirectTo('/profile'))
+    try {
+        await dispatch(addAccessKeySeedPhrase(accountId, recoveryKeyPair))
+    } catch (error) {
+        // error is thrown in `addAccessKeySeedPhrase` action, despite the error, we still want to redirect to /profile
+    }
+    dispatch(redirectTo('/profile', { 
+        globalAlertPreventClear: true
+    }))
 }
 
 export const handleCreateAccountWithSeedPhrase = (accountId, recoveryKeyPair, fundingContract, fundingKey) => async (dispatch) => {
-    await dispatch(createAccountWithSeedPhrase(accountId, recoveryKeyPair, fundingContract, fundingKey))
+    try {
+        await dispatch(createAccountWithSeedPhrase(accountId, recoveryKeyPair, fundingContract, fundingKey))
+    } catch (error) {
+        dispatch(redirectTo('/recover-seed-phrase', { 
+            globalAlertPreventClear: true,
+            defaultAccountId: accountId
+        }))
+        return
+    }
+
     const account = await dispatch(refreshAccount())
     const promptTwoFactor = await wallet.twoFactor.checkCanEnableTwoFactor(account)
 
@@ -324,16 +343,35 @@ export const { addAccessKey, createAccountWithSeedPhrase, addAccessKeySeedPhrase
     ],
     CREATE_ACCOUNT_WITH_SEED_PHRASE: [
         async (accountId, recoveryKeyPair, fundingContract, fundingKey) => {
+            const previousAccountId = wallet.accountId
+
             await wallet.saveAccount(accountId, recoveryKeyPair);
-            await wallet.createNewAccount(accountId, fundingContract, fundingKey, recoveryKeyPair.publicKey)
+
+            try {
+                await wallet.createNewAccount(accountId, fundingContract, fundingKey, recoveryKeyPair.publicKey)
+            } catch (e) {
+                console.warn('RPC error: createNewAccount\n', e)
+                await new Promise((r) => setTimeout(r, 4000)) // wait 4s for chain
+                await wallet.getAccount(accountId).state()
+            }
+
+            // if not thrown getting new account state, account exists
             const publicKey = recoveryKeyPair.publicKey.toString()
             const contractName = null;
             const fullAccess = true;
             const newKeyPair = KeyPair.fromRandom('ed25519')
             const newPublicKey = newKeyPair.publicKey
-            await wallet.addAccessKey(accountId, contractName, newPublicKey, fullAccess)
-            await wallet.saveAccount(accountId, newKeyPair)
+            
             await wallet.postSignedJson('/account/seedPhraseAdded', { accountId, publicKey })
+            try {
+                await wallet.addAccessKey(accountId, contractName, newPublicKey, fullAccess)
+                await wallet.saveAccount(accountId, newKeyPair)
+            } catch (error) {
+                if (previousAccountId) {
+                    await wallet.saveAndSelectAccount(previousAccountId)
+                }
+                throw new WalletError(error, 'account.create.addAccessKey.error')
+            }
         },
         () => defaultCodesFor('account.createAccountSeedPhrase')
     ],
@@ -342,8 +380,13 @@ export const { addAccessKey, createAccountWithSeedPhrase, addAccessKeySeedPhrase
             const publicKey = recoveryKeyPair.publicKey.toString()
             const contractName = null;
             const fullAccess = true;
-            await wallet.addAccessKey(accountId, contractName, publicKey, fullAccess)
-            await wallet.postSignedJson('/account/seedPhraseAdded', { accountId, publicKey })
+            
+            try {
+                await wallet.postSignedJson('/account/seedPhraseAdded', { accountId, publicKey })
+                await wallet.addAccessKey(accountId, contractName, publicKey, fullAccess)
+            } catch (error) {
+                throw new WalletError(error, 'account.addAccessKey.error')
+            }
         },
         () => defaultCodesFor('account.setupSeedPhrase')
     ],

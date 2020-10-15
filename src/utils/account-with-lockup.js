@@ -20,6 +20,9 @@ export function decorateWithLockup(account) {
 }
 
 async function signAndSendTransaction(receiverId, actions) {
+
+    console.log(receiverId, actions)
+
     const { available: balance } = await this.wrappedAccount.getAccountBalance()
 
     // TODO: Extract code to compute total cost of transaction

@@ -422,10 +422,10 @@ class Wallet {
     // TODO: Why is fullAccess needed? Everything without contractId should be full access.
     async addAccessKey(accountId, contractId, publicKey, fullAccess = false, methodNames) {
         const account = this.getAccount(accountId)
-        console.log('account instance used in recovery add localStorage key', account)
+        console.log('account instance', account)
         // update has2fa now after we have the right Account instance for temp recovery
         this.has2fa = await this.twoFactor.isEnabled()
-        console.log('key being added to 2fa account (this.has2fa)', this.has2fa)
+        console.log('this.has2fa', this.has2fa)
         try {
             if (fullAccess || (!this.has2fa && accountId === contractId)) {
                 console.log('adding full access key', publicKey.toString())
