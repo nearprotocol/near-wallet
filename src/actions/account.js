@@ -176,6 +176,7 @@ export const {
     get2faMethod,
     getLedgerKey,
     getLedgerPublicKey,
+    createMagicLink,
     setupRecoveryMessage,
     setupRecoveryMessageNewAccount,
     deleteRecoveryMethod,
@@ -252,6 +253,10 @@ export const {
     GET_LEDGER_PUBLIC_KEY: [
         wallet.getLedgerPublicKey.bind(wallet),
         () => defaultCodesFor('account.LedgerPublicKey')
+    ],
+    CREATE_MAGIC_LINK: [
+        wallet.createMagicLink.bind(wallet),
+        () => defaultCodesFor('account.createMagicLink')
     ],
     SETUP_RECOVERY_MESSAGE: [
         wallet.setupRecoveryMessage.bind(wallet),

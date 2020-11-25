@@ -19,6 +19,7 @@
     "react-dom": "^16.13.1",
     "react-localize-redux": "^3.5.3",
     "react-phone-number-input": "2.3.11",
+    "react-qr-reader": "^2.2.1",
     "react-qr-svg": "^2.2.2",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",

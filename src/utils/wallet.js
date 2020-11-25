@@ -625,6 +625,13 @@ class Wallet {
         return { blockNumber, blockNumberSignature };
     }
 
+    async createMagicLink() {
+        const { seedPhrase, publicKey } = generateSeedPhrase()
+        const account = await this.getAccount(this.accountId)
+        await account.addKey(publicKey) // Handle 2FA case
+        return `${`https://wallet${!IS_MAINNET ? `.testnet` : ``}.near.org`}/recover-with-link/${encodeURIComponent(this.accountId)}/${encodeURIComponent(seedPhrase)}`
+    }
+
     async postSignedJson(path, options) {
         return await sendJson('POST', ACCOUNT_HELPER_URL + path, {
             ...options,

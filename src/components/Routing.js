@@ -21,6 +21,7 @@ import PrivateRoute from './common/PrivateRoute'
 import DashboardDetailWithRouter from './dashboard/DashboardDetail'
 import { CreateAccountWithRouter } from './accounts/CreateAccount'
 import { SetupRecoveryMethodWithRouter } from './accounts/recovery_setup/SetupRecoveryMethod'
+import { AddDeviceWithRouter } from './accounts/AddDevice'
 import { SetupLedgerWithRouter } from './accounts/ledger/SetupLedger'
 import { SetupLedgerSuccessWithRouter } from './accounts/ledger/SetupLedgerSuccess'
 import { EnableTwoFactor } from './accounts/two_factor/EnableTwoFactor'
@@ -230,6 +231,11 @@ class Routing extends Component {
                                     exact
                                     path='/recover-account'
                                     component={RecoverAccountWithRouter}
+                                />
+                                <Route
+                                    exact
+                                    path='/add-device'
+                                    component={AddDeviceWithRouter}
                                 />
                                 <Route
                                     exact

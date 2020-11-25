@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import PageContainer from '../common/PageContainer';
 import ProfileDetails from './ProfileDetails'
 import ProfileSection from './ProfileSection'
+import QrCodeLoginModal from '../common/QrCodeLoginModal'
 import RecoveryContainer from './Recovery/RecoveryContainer'
 import HardwareDevices from './hardware_devices/HardwareDevices'
 import TwoFactorAuth from './two_factor/TwoFactorAuth'
@@ -46,6 +47,7 @@ export function Profile({ match }) {
                         {!twoFactor && <HardwareDevices/>}
                     </>
                 )}
+                <QrCodeLoginModal accountId={accountId}/>
             </ProfileSection>
         </PageContainer>
     )
