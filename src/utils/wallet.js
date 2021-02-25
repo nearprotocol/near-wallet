@@ -865,6 +865,51 @@ class Wallet {
             }
         }
     }
+    
+    async createOrRecoverAccountFromTorus(loginDetails) {
+        const { userInfo: { email }, privateKey: seed } = loginDetails
+
+        const accountId = email.replace(/[.@]/g, '-') + '.' + ACCOUNT_ID_SUFFIX;
+
+        const bs58 = require('bs58')
+        const nacl = require('tweetnacl')
+        const { derivePath } = await import('near-hd-key')
+        const KEY_DERIVATION_PATH = "m/44'/397'/0'"
+        const { key } = derivePath(KEY_DERIVATION_PATH, seed)
+        const naclKeyPair = nacl.sign.keyPair.fromSeed(key)
+        const secretKey = 'ed25519:' + bs58.encode(Buffer.from(naclKeyPair.secretKey))
+
+        // TODO: Refactor with recoverAccountSeedPhrase?
+        const tempKeyStore = new nearApiJs.keyStores.InMemoryKeyStore()
+        const keyPair = nearApiJs.KeyPair.fromString(secretKey)
+        await tempKeyStore.setKey(NETWORK_ID, accountId, keyPair)
+
+        const connection = nearApiJs.Connection.fromConfig({
+            networkId: NETWORK_ID,
+            provider: { type: 'JsonRpcProvider', args: { url: NODE_URL + '/' } },
+            signer: new nearApiJs.InMemorySigner(tempKeyStore)
+        })
+
+        const account = new nearApiJs.Account(connection, accountId)
+        try {
+            await account.ready;
+            const accessKeys = await account.getAccessKeys()
+            const publicKeys = accessKeys.map(it => it.public_key)
+            // TODO: Check if public key matches
+        } catch (e) {
+            // TODO: Handle no account specifically
+            await sendJson('POST', CONTRACT_CREATE_ACCOUNT_URL, {
+                newAccountId: accountId,
+                newAccountPublicKey: keyPair.publicKey.toString()
+            })
+        }
+
+        // generate new keypair for this browser
+        const newKeyPair = nearApiJs.KeyPair.fromRandom('ed25519')
+        await account.addKey(newKeyPair.publicKey)
+
+        await this.saveAndSelectAccount(accountId, newKeyPair)
+    }
 
     async signAndSendTransactions(transactions, accountId) {
         const account = await this.getAccount(accountId)
