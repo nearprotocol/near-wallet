@@ -11,7 +11,6 @@ import SelectAccountDropdown from './SelectAccountDropdown'
 
 import IconProblems from '../../images/IconProblems'
 import IconAuthorize from '../../images/IconAuthorize'
-import { Mixpanel } from '../../mixpanel/index'
 
 const LoginForm = ({
     dropdown,
@@ -119,6 +118,7 @@ const LoginForm = ({
                         dropdown={dropdown}
                         handleSelectAccount={handleSelectAccount}
                         redirectCreateAccount={redirectCreateAccount}
+                        disabled={buttonLoader}
                     />
                 </Grid.Column>
             </Grid.Row>
@@ -127,6 +127,7 @@ const LoginForm = ({
                     <FormButton
                         color='gray-white'
                         onClick={handleDeny}
+                        disabled={buttonLoader}
                     >
                         <Translate id='button.deny' />
                     </FormButton>
@@ -136,6 +137,7 @@ const LoginForm = ({
                             color='blue'
                             sending={buttonLoader}
                             onClick={handleAllow}
+                            disabled={buttonLoader}
                             sendingString='button.authorizing'
                         >
                             <Translate id='button.allow' />
@@ -145,7 +147,7 @@ const LoginForm = ({
                         <FormButton
                             linkTo={`${match.url}${match.url.substr(-1) === '/' ? '' : '/'}confirm`}
                             color='blue'
-                            sending={buttonLoader}
+                            disabled={buttonLoader}
                         >
                             <Translate id='button.allow' />
                         </FormButton>

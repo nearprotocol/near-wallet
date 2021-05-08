@@ -7,7 +7,7 @@ import LoginForm from './LoginForm'
 import LoginConfirm from './LoginConfirm'
 import LoginDetails from './LoginDetails'
 import LoginIncorrectContractId from './LoginIncorrectContractId'
-import { handleRefreshUrl, switchAccount, allowLogin, redirectToApp } from '../../actions/account'
+import { handleRefreshUrl, switchAccount, allowLogin, redirectToApp, redirectTo } from '../../actions/account'
 import { clearLocalAlert } from '../../actions/status'
 import { LOCKUP_ACCOUNT_ID_SUFFIX } from '../../utils/wallet'
 import { Mixpanel } from '../../mixpanel/index'
@@ -36,16 +36,14 @@ class Login extends Component {
     }
 
     handleAllow = async () => {
-        this.setState(() => ({
-            buttonLoader: true
-        }))
+        this.setState({ buttonLoader: true })
 
         await Mixpanel.withTracking("LOGIN",
             async () => await this.props.allowLogin(),
             () => {},
-            () => this.setState(() => ({
+            () => this.setState({
                 buttonLoader: false
-            }))
+            })
         )
     }
 
@@ -55,7 +53,7 @@ class Login extends Component {
 
     redirectCreateAccount = () => {
         Mixpanel.track("LOGIN Click create new account button")
-        this.props.history.push('/create')
+        this.props.redirectTo('/create')
     }
 
     render() {
@@ -128,6 +126,7 @@ const mapDispatchToProps = {
     switchAccount,
     allowLogin,
     redirectToApp,
+    redirectTo,
     clearLocalAlert
 }
 

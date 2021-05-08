@@ -461,26 +461,18 @@ class Wallet {
     async addAccessKey(accountId, contractId, publicKey, fullAccess = false, methodNames = '', recoveryKeyIsFAK) {
         const account = recoveryKeyIsFAK ? new nearApiJs.Account(this.connection, accountId) : await this.getAccount(accountId)
         const has2fa = await TwoFactor.has2faEnabled(account)
-        console.log('key being added to 2fa account ?', has2fa, account)
-        try {
-            // TODO: Why not always pass `fullAccess` explicitly when it's desired?
-            // TODO: Alternatively require passing MULTISIG_CHANGE_METHODS from caller as `methodNames`
-            if (fullAccess || (!has2fa && accountId === contractId && !methodNames.length)) {
-                console.log('adding full access key', publicKey.toString())
-                return await account.addKey(publicKey)
-            } else {
-                return await account.addKey(
-                    publicKey.toString(),
-                    contractId,
-                    (has2fa && !methodNames.length && accountId === contractId) ? MULTISIG_CHANGE_METHODS : methodNames,
-                    ACCESS_KEY_FUNDING_AMOUNT
-                )
-            }
-        } catch (e) {
-            if (e.type === 'AddKeyAlreadyExists') {
-                return true;
-            }
-            throw e;
+        // TODO: Why not always pass `fullAccess` explicitly when it's desired?
+        // TODO: Alternatively require passing MULTISIG_CHANGE_METHODS from caller as `methodNames`
+        if (fullAccess || (!has2fa && accountId === contractId && !methodNames.length)) {
+            console.log('adding full access key', publicKey.toString())
+            return await account.addKey(publicKey)
+        } else {
+            return await account.addKey(
+                publicKey.toString(),
+                contractId,
+                (has2fa && !methodNames.length && accountId === contractId) ? MULTISIG_CHANGE_METHODS : methodNames,
+                ACCESS_KEY_FUNDING_AMOUNT
+            )
         }
     }
 
