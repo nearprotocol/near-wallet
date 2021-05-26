@@ -1,0 +1,31 @@
+{
+  "EXAMPLE_FLAG": {
+    "createdBy": "Daryl Collins",
+    "createdAt": "2021-05-24T09:33:27.489Z",
+    "development": {
+      "enabled": true,
+      "lastEditedBy": "Daryl Collins",
+      "lastEditedAt": "2021-05-24T09:33:27.489Z"
+    },
+    "testnet_STAGING": {
+      "enabled": true,
+      "lastEditedBy": "Daryl Collins",
+      "lastEditedAt": "2021-05-24T09:42:11.825Z"
+    },
+    "testnet": {
+      "enabled": false,
+      "lastEditedBy": "Daryl Collins",
+      "lastEditedAt": "2021-05-24T09:33:27.489Z"
+    },
+    "mainnet_STAGING": {
+      "enabled": false,
+      "lastEditedBy": "Daryl Collins",
+      "lastEditedAt": "2021-05-24T09:33:27.489Z"
+    },
+    "mainnet": {
+      "enabled": false,
+      "lastEditedBy": "Daryl Collins",
+      "lastEditedAt": "2021-05-24T09:33:27.489Z"
+    }
+  }
+}

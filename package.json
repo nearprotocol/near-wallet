@@ -34,6 +34,7 @@
     "timeago.js": "^4.0.2"
   },
   "scripts": {
+    "editflag": "node ./FlagEditor/index.js",
     "predeploy": "yarn build",
     "update:static": "cp src/wasm/multisig.wasm dist/multisig.wasm && cp src/wasm/main.wasm dist/main.wasm",
     "start": "yarn update:static; parcel src/index.html --https",
@@ -71,6 +72,9 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.23.2",
+    "fs-extra": "^10.0.0",
+    "ini": "^2.0.0",
+    "inquirer": "^8.1.0",
     "jest": "^26.6.1",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-bundle-visualiser": "^1.2.0",
