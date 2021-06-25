@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Container from '../../common/styled/Container.css';
 import LedgerImage from '../../svg/LedgerImage';
 import FormButton from '../../common/FormButton';
@@ -14,14 +14,15 @@ import {
     signInWithLedgerAddAndSaveAccounts, 
     checkAccountAvailable, 
     clearSignInWithLedgerModalState
-} from '../../../actions/account';
-import { staking } from '../../../actions/staking';
-import { tokens } from '../../../actions/tokens'
-import { clearLocalAlert } from '../../../actions/status'
+} from '../../../redux/actions/account';
+import { tokens } from '../../../redux/actions/tokens'
+import { staking } from '../../../redux/actions/staking';
+import { clearLocalAlert } from '../../../redux/actions/status'
 import LocalAlertBox from '../../common/LocalAlertBox'
 import { controller as controllerHelperApi } from '../../../utils/helper-api'
 import { Mixpanel } from '../../../mixpanel/index'
 import LedgerHdPaths from './LedgerHdPaths'
+import { useSelector } from '../../../redux/useSelector';
 
 export function SignInLedger(props) {
     const dispatch = useDispatch();

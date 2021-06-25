@@ -1,6 +1,6 @@
 import * as nearApiJs from 'near-api-js'
 import { store } from '..'
-import { promptTwoFactor, refreshAccount } from '../actions/account'
+import { promptTwoFactor, refreshAccount } from '../redux/actions/account'
 import { MULTISIG_MIN_AMOUNT, ACCOUNT_HELPER_URL } from './wallet'
 import { utils } from 'near-api-js'
 import { BN } from 'bn.js'

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import MobileContainer from '../sign/MobileContainer'
 import FormButton from '../common/FormButton'
-import { showCustomAlert } from '../../actions/status'
+import { showCustomAlert } from '../../redux/actions/status'
 
 const LoginIncorrectContractId = ({ contractId, failureUrl }) => {
     const dispatch = useDispatch();

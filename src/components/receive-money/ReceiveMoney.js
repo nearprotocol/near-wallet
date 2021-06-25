@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import ProfileQRCode from '../profile/ProfileQRCode';
@@ -10,6 +9,7 @@ import copyText from '../../utils/copyText';
 import isMobile from '../../utils/isMobile';
 import iconShare from '../../images/icon-share-blue.svg';
 import { Mixpanel } from '../../mixpanel/index';
+import connectAccount from '../../redux/connectAccount';
 
 const Container = styled.div`
     display: flex;
@@ -193,6 +193,6 @@ const mapStateToProps = ({ account }) => ({
    account
 })
 
-export const ReceiveMoneyWithRouter = connect(
+export const ReceiveMoneyWithRouter = connectAccount(
    mapStateToProps
 )(withRouter(ReceiveMoney))

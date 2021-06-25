@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { withRouter, Route } from 'react-router-dom'
 
 import LoginContainer from './LoginContainer'
@@ -7,10 +6,11 @@ import LoginForm from './LoginForm'
 import LoginConfirm from './LoginConfirm'
 import LoginDetails from './LoginDetails'
 import LoginIncorrectContractId from './LoginIncorrectContractId'
-import { handleRefreshUrl, switchAccount, allowLogin, redirectToApp } from '../../actions/account'
-import { clearLocalAlert } from '../../actions/status'
+import { handleRefreshUrl, switchAccount, allowLogin, redirectToApp } from '../../redux/actions/account'
+import { clearLocalAlert } from '../../redux/actions/status'
 import { LOCKUP_ACCOUNT_ID_SUFFIX } from '../../utils/wallet'
 import { Mixpanel } from '../../mixpanel/index'
+import connectAccount from '../../redux/connectAccount'
 
 class Login extends Component {
     state = {
@@ -160,7 +160,7 @@ const mapStateToProps = ({ account }) => ({
     appTitle: account.url?.referrer
 })
 
-export const LoginWithRouter = connect(
+export const LoginWithRouter = connectAccount(
     mapStateToProps,
     mapDispatchToProps
 )(withRouter(Login))

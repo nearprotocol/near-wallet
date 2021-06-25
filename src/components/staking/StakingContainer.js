@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Switch, Route } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router'
 import styled from 'styled-components'
@@ -8,7 +8,7 @@ import {
     updateStaking,
     staking as stakingActions,
     handleStakingAction
-} from '../../actions/staking'
+} from '../../redux/actions/staking'
 import Container from '../common/styled/Container.css'
 import Staking from './components/Staking'
 import Validators from './components/Validators'
@@ -17,8 +17,9 @@ import Withdraw from './components/Withdraw'
 import Validator from './components/Validator'
 import StakingAction from './components/StakingAction'
 import { setStakingAccountSelected, getStakingAccountSelected } from '../../utils/localStorage'
-import { getBalance } from '../../actions/account'
+import { getBalance } from '../../redux/actions/account'
 import { Mixpanel } from '../../mixpanel/index'
+import { useSelector } from '../../redux/useSelector'
 
 const StyledContainer = styled(Container)`
     button {

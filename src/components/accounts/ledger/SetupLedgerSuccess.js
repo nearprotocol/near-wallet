@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { connect, useSelector } from 'react-redux';
 import Container from '../../common/styled/Container.css';
 import HardwareDeviceIcon from '../../svg/HardwareDeviceIcon';
 import NextStepModal from './NextStepModal';
 import FormButton from '../../common/FormButton';
 import { Translate } from 'react-localize-redux';
-import { removeNonLedgerAccessKeys, redirectTo } from '../../../actions/account';
+import { removeNonLedgerAccessKeys, redirectTo } from '../../../redux/actions/account';
 import { actionsPending } from '../../../utils/alerts'
 import { Mixpanel } from '../../../mixpanel/index'
+import { useSelector } from '../../../redux/useSelector';
+import connectAccount from '../../../redux/connectAccount';
 
 const SetupLedgerSuccess = (props) => {
 
@@ -70,4 +71,4 @@ const mapStateToProps = ({ account }) => ({
     ...account
 })
 
-export const SetupLedgerSuccessWithRouter = connect(mapStateToProps, mapDispatchToProps)(SetupLedgerSuccess);
+export const SetupLedgerSuccessWithRouter = connectAccount(mapStateToProps, mapDispatchToProps)(SetupLedgerSuccess);

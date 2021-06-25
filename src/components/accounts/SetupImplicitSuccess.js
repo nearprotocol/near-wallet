@@ -1,11 +1,12 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Container from '../common/styled/Container.css'
 import FormButton from '../common/FormButton'
 import { Translate } from 'react-localize-redux'
 import styled from 'styled-components'
 import StarIcon from '../svg/StarIcon.js'
-import { redirectToApp } from '../../actions/account'
+import { redirectToApp } from '../../redux/actions/account'
+import { useSelector } from '../../redux/useSelector';
 
 const StyledContainer = styled(Container)`
     button {

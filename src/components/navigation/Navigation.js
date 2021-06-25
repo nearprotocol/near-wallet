@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { switchAccount, getAvailableAccountsBalance, getAccountBalance, getBalance } from '../../actions/account';
-import { connect } from 'react-redux';
+import { switchAccount, getAvailableAccountsBalance, getAccountBalance, getBalance } from '../../redux/actions/account';
 import DesktopContainer from './DesktopContainer';
 import MobileContainer from './MobileContainer';
 import styled from 'styled-components';
+import connectAccount from '../../redux/connectAccount';
 
 const Container = styled.div`
     position: fixed;
@@ -64,7 +64,7 @@ class Navigation extends Component {
     }
 
     get showNavLinks() {
-        return this.props.account.localStorage?.accountFound
+        return this.props.account?.localStorage?.accountFound
     }
 
     toggleMenu = () => {
@@ -113,7 +113,7 @@ class Navigation extends Component {
     }
 }
 
-const mapStateToProps = ({ account, availableAccounts, router, flowLimitation }) => ({
+const mapStateToProps = ({ account, availableAccounts, flowLimitation }, { router }) => ({
     account,
     availableAccounts,
     router,
@@ -127,7 +127,7 @@ const mapDispatchToProps = {
     getBalance
 }
 
-export default connect(
+export default connectAccount(
     mapStateToProps,
     mapDispatchToProps
 )(withRouter(Navigation))

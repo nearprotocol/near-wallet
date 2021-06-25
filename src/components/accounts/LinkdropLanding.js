@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { connect } from 'react-redux'
 import { Translate } from 'react-localize-redux'
-import { checkNearDropBalance, claimLinkdropToAccount, redirectTo } from '../../actions/account'
-import { clearLocalAlert } from '../../actions/status'
+import { checkNearDropBalance, claimLinkdropToAccount, redirectTo } from '../../redux/actions/account'
+import { clearLocalAlert } from '../../redux/actions/status'
 import Container from '../common/styled/Container.css'
 import FormButton from '../common/FormButton'
 import { Mixpanel } from '../../mixpanel/index'
@@ -12,6 +11,7 @@ import NearGiftIcons from '../svg/NearGiftIcons'
 import BrokenLinkIcon from '../svg/BrokenLinkIcon';
 import AccountDropdown from '../common/AccountDropdown'
 import { actionsPending } from '../../utils/alerts'
+import connectAccount from '../../redux/connectAccount'
 
 const StyledContainer = styled(Container)`
     display: flex;
@@ -154,14 +154,14 @@ const mapDispatchToProps = {
     redirectTo
 }
 
-const mapStateToProps = ({ account, status }, { match }) => ({
+const mapStateToProps = ({ account, status }, stateMainReducer, { match }) => ({
     ...account,
     fundingContract: match.params.fundingContract,
     fundingKey: match.params.fundingKey,
     mainLoader: status.mainLoader
 })
 
-export const LinkdropLandingWithRouter = connect(
+export const LinkdropLandingWithRouter = connectAccount(
     mapStateToProps,
     mapDispatchToProps
 )(LinkdropLanding)

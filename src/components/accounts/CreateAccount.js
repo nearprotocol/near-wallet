@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Translate } from 'react-localize-redux'
-import { checkNewAccount, createNewAccount, refreshAccount, checkNearDropBalance, redirectTo } from '../../actions/account'
-import { clearLocalAlert } from '../../actions/status'
+import { checkNewAccount, createNewAccount, refreshAccount, checkNearDropBalance, redirectTo } from '../../redux/actions/account'
+import { clearLocalAlert } from '../../redux/actions/status'
 import { ACCOUNT_ID_SUFFIX } from '../../utils/wallet'
 import Container from '../common/styled/Container.css'
 import BrokenLinkIcon from '../svg/BrokenLinkIcon';
@@ -13,6 +12,7 @@ import AccountFormAccountId from './AccountFormAccountId'
 import AccountNote from '../common/AccountNote'
 import { Mixpanel } from '../../mixpanel/index'
 import TermsModal from './TermsModal'
+import connectAccount from '../../redux/connectAccount'
 
 const StyledContainer = styled(Container)`
 
@@ -210,16 +210,16 @@ const mapDispatchToProps = {
     redirectTo
 }
 
-const mapStateToProps = ({ account, status }, { match }) => ({
+const mapStateToProps = ({ account }, { statusMain }, { match }) => ({
     ...account,
-    localAlert: status.localAlert,
-    mainLoader: status.mainLoader,
+    localAlert: statusMain.localAlert,
+    mainLoader: statusMain.mainLoader,
     fundingContract: match.params.fundingContract,
     fundingKey: match.params.fundingKey,
     fundingAccountId: match.params.fundingAccountId,
 })
 
-export const CreateAccountWithRouter = connect(
+export const CreateAccountWithRouter = connectAccount(
     mapStateToProps,
     mapDispatchToProps
 )(CreateAccount)

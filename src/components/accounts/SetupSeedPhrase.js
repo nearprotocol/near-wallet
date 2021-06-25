@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import { withRouter, Route } from 'react-router-dom'
-import { connect } from 'react-redux'
 import { Translate } from 'react-localize-redux'
 import { parse as parseQuery } from 'query-string'
 import {
@@ -10,7 +9,7 @@ import {
     handleCreateAccountWithSeedPhrase,
     fundCreateAccount,
     loadRecoveryMethods
-} from '../../actions/account'
+} from '../../redux/actions/account'
 import { generateSeedPhrase } from 'near-seed-phrase'
 import SetupSeedPhraseVerify from './SetupSeedPhraseVerify'
 import SetupSeedPhraseForm from './SetupSeedPhraseForm'
@@ -20,8 +19,9 @@ import { Snackbar, snackbarDuration } from '../common/Snackbar'
 import Container from '../common/styled/Container.css'
 import { KeyPair } from 'near-api-js'
 import { Mixpanel } from '../../mixpanel/index'
-import { clearGlobalAlert, showCustomAlert } from '../../actions/status';
+import { clearGlobalAlert, showCustomAlert } from '../../redux/actions/status';
 import { isRetryableRecaptchaError } from '../Recaptcha';
+import connectAccount from '../../redux/connectAccount'
 
 // FIXME: Use `debug` npm package so we can keep some debug logging around but not spam the console everywhere
 const ENABLE_DEBUG_LOGGING = false;
@@ -200,7 +200,8 @@ class SetupSeedPhrase extends Component {
     }
 
     render() {
-        const recoveryMethods = this.props.recoveryMethods[this.props.accountId]
+        // TODO: store recovery methods for only active account in recoveryMethods reducer
+        const recoveryMethods = this.props.recoveryMethods && this.props.recoveryMethods[this.props.accountId]
         const hasSeedPhraseRecovery = recoveryMethods && recoveryMethods.filter(m => m.kind === 'phrase').length > 0
         return (
             <Translate>
@@ -273,13 +274,13 @@ const mapDispatchToProps = {
     showCustomAlert
 }
 
-const mapStateToProps = ({ account, recoveryMethods, status }, { match }) => ({
+const mapStateToProps = ({ account, recoveryMethods }, { statusMain }, { match }) => ({
     ...account,
     verify: match.params.verify,
     accountId: match.params.accountId,
-    activeAccountId: account.accountId,
+    activeAccountId: account?.accountId,
     recoveryMethods,
-    mainLoader: status.mainLoader
+    mainLoader: statusMain?.mainLoader
 })
 
-export const SetupSeedPhraseWithRouter = connect(mapStateToProps, mapDispatchToProps)(withRouter(SetupSeedPhrase))
+export const SetupSeedPhraseWithRouter = connectAccount(mapStateToProps, mapDispatchToProps)(withRouter(SetupSeedPhrase))

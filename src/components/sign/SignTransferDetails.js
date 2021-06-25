@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Translate } from 'react-localize-redux'
 
@@ -9,6 +8,7 @@ import IconProblems from '../../images/IconProblems'
 import { Grid } from 'semantic-ui-react'
 
 import styled from 'styled-components'
+import connectAccount from '../../redux/connectAccount'
 
 const CustomGrid = styled(Grid)`
     .top-back {
@@ -241,4 +241,4 @@ const mapStateToProps = ({ account, sign }) => ({
     ...sign,
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignTransferDetails))
+export default connectAccount(mapStateToProps, mapDispatchToProps)(withRouter(SignTransferDetails))

@@ -19,7 +19,7 @@ import {
     fundCreateAccount,
     finishAccountSetup,
     selectAccount
-} from '../actions/account'
+} from '../redux/actions/account'
 
 import { TwoFactor } from './twoFactor'
 import { decorateWithLockup } from './account-with-lockup'
@@ -444,6 +444,10 @@ class Wallet {
     async saveAccount(accountId, keyPair) {
         await this.setKey(accountId, keyPair)
         this.accounts[accountId] = true
+
+        // temporary solution
+        // TODO: figure out better way to inject reducer
+        store.injectReducer()
     }
 
     selectAccount(accountId) {
@@ -937,7 +941,7 @@ class Wallet {
     }
 
     dispatchShowLedgerModal(show) {
-        const { actionStatus } = store.getState().status
+        const { actionStatus } = store.getState()[this.accountId]?.status || store.getState()?.status
         const actions = Object.keys(actionStatus).filter((action) => actionStatus[action]?.pending === true)
         const action = actions.length ? actions[actions.length - 1] : false
         store.dispatch(showLedgerModal({ show, action }))

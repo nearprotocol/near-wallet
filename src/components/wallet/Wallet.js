@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { Translate } from 'react-localize-redux'
 import FormButton from '../common/FormButton'
@@ -9,23 +9,22 @@ import SendIcon from '../svg/SendIcon'
 import DownArrowIcon from '../svg/DownArrowIcon'
 import BuyIcon from '../svg/BuyIcon'
 import Balance from '../common/Balance'
-import { getTransactions, getTransactionStatus } from '../../actions/transactions'
+import { getTransactions, getTransactionStatus } from '../../redux/actions/transactions'
 import { Mixpanel } from "../../mixpanel/index"
 import Activities from './Activities'
 import ExploreApps from './ExploreApps'
 import Tokens from './Tokens'
 import NFTs from './NFTs'
 import LinkDropSuccessModal from './LinkDropSuccessModal'
-import { selectTokensDetails } from '../../reducers/tokens'
-import { selectActionStatus } from '../../reducers/status'
-import { selectTransactions } from '../../reducers/transactions'
-import { selectAccountId, selectBalance } from '../../reducers/account'
-import { handleGetTokens } from '../../actions/tokens'
-import { handleGetNFTs } from '../../actions/nft'
+import { selectTokensDetails } from '../../redux/reducers/tokens'
+import { selectActionStatus } from '../../redux/reducers/status'
+import { handleGetTokens } from '../../redux/actions/tokens'
+import { handleGetNFTs } from '../../redux/actions/nft'
 import classNames from '../../utils/classNames'
 import { actionsPendingByPrefix } from '../../utils/alerts'
-import { selectNFT } from '../../reducers/nft'
+import { selectNFT } from '../../redux/reducers/nft'
 import { SHOW_NETWORK_BANNER } from '../../utils/wallet'
+import { useSelector } from '../../redux/useSelector'
 
 const StyledContainer = styled(Container)`
     @media (max-width: 991px) {
@@ -243,9 +242,8 @@ const StyledContainer = styled(Container)`
 export function Wallet() {
     const [exploreApps, setExploreApps] = useState(null);
     const [showLinkdropModal, setShowLinkdropModal] = useState(null);
-    const accountId = useSelector(state => selectAccountId(state))
-    const balance = useSelector(state => selectBalance(state))
-    const transactions = useSelector(state => selectTransactions(state))
+    const { balance, accountId } = useSelector(({ account }) => account)
+    const transactions = useSelector(({ transactions }) => transactions)
     const dispatch = useDispatch()
     const hideExploreApps = localStorage.getItem('hideExploreApps')
     const linkdropAmount = localStorage.getItem('linkdropAmount')

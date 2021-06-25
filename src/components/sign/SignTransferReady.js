@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { Translate } from 'react-localize-redux'
-import { switchAccount } from '../../actions/account'
+import { switchAccount } from '../../redux/actions/account'
 import SignAnimatedArrow from './SignAnimatedArrow'
 import SignTransferDetails from './SignTransferDetails'
 import SelectAccountDropdown from '../login/SelectAccountDropdown'
@@ -12,6 +11,7 @@ import Button from '../common/Button'
 import InlineNotification from '../common/InlineNotification'
 import FormButton from '../common/FormButton'
 import BalanceBreakdown from '../staking/components/BalanceBreakdown'
+import connectAccount from '../../redux/connectAccount'
 
 
 const Container = styled.div`
@@ -252,10 +252,10 @@ const mapDispatchToProps = {
     switchAccount
 }
 
-const mapStateToProps = ({ account, sign, availableAccounts }) => ({
+const mapStateToProps = ({ account, availableAccounts, sign }) => ({
     account,
     availableAccounts,
     ...sign
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignTransferReady))
+export default connectAccount(mapStateToProps, mapDispatchToProps)(withRouter(SignTransferReady))

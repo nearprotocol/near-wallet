@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Translate } from 'react-localize-redux';
 import TwoFactorOption from './TwoFactorOption';
@@ -14,14 +14,15 @@ import {
     verifyTwoFactor,
     deployMultisig,
     redirectToApp
-} from '../../../actions/account';
-import { clearGlobalAlert } from '../../../actions/status'
+} from '../../../redux/actions/account';
+import { clearGlobalAlert } from '../../../redux/actions/status'
 import { useRecoveryMethods } from '../../../hooks/recoveryMethods';
 import EnterVerificationCode from '../EnterVerificationCode';
 import Container from '../../common/styled/Container.css';
 import { Mixpanel } from '../../../mixpanel/index';
 import { actionsPending } from '../../../utils/alerts'
 import Checkbox from '../../common/Checkbox'
+import { useSelector } from '../../../redux/useSelector';
 
 const StyledContainer = styled(Container)`
 

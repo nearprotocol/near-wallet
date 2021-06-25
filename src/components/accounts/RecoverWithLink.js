@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
 import styled from 'styled-components'
 import Button from '../common/Button'
 import FormButton from '../common/FormButton'
@@ -8,7 +7,7 @@ import {
     recoverAccountSeedPhrase,
     refreshAccount,
     redirectTo,
-} from '../../actions/account'
+} from '../../redux/actions/account'
 import { Snackbar, snackbarDuration } from '../common/Snackbar'
 import { Translate } from 'react-localize-redux'
 import copyText from '../../utils/copyText'
@@ -16,6 +15,7 @@ import isMobile from '../../utils/isMobile'
 import { DISABLE_CREATE_ACCOUNT } from '../../utils/wallet'
 import { Mixpanel } from '../../mixpanel/index'
 import { actionsPending } from '../../utils/alerts'
+import connectAccount from '../../redux/connectAccount'
 
 const Container = styled.div`
     margin-top: 5px;
@@ -237,14 +237,14 @@ const mapDispatchToProps = {
     redirectTo
 }
 
-const mapStateToProps = ({ account, status }, { match }) => ({
+const mapStateToProps = ({ account, status }, stateMainReducer, { match }) => ({
     ...account,
     accountId: match.params.accountId || '',
     seedPhrase: match.params.seedPhrase || '',
     mainLoader: status.mainLoader
 })
 
-export const RecoverWithLinkWithRouter = connect(
+export const RecoverWithLinkWithRouter = connectAccount(
     mapStateToProps, 
     mapDispatchToProps
 )(withRouter(RecoverWithLink))

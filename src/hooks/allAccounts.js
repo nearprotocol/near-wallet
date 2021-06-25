@@ -1,10 +1,13 @@
 import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { refreshAccountExternal, getProfileStakingDetails } from '../actions/account'
+import { useDispatch } from 'react-redux'
+import { refreshAccountExternal, getProfileStakingDetails } from '../redux/actions/account'
+import { useSelector } from '../redux/useSelector'
 
 export function useAccount(accountId) {
-    const state = useSelector(state => state)
-    const isOwner = state.account.accountId === accountId
+    const { account } = useSelector(state => state)
+    const { allAccounts } = useSelector(state => state)
+
+    const isOwner = account.accountId === accountId
 
     const dispatch = useDispatch()
     useEffect(() => {
@@ -17,6 +20,6 @@ export function useAccount(accountId) {
     }, [accountId])
 
     return isOwner
-        ? state.account
-        : state.allAccounts[accountId] || {}
+        ? account
+        : allAccounts[accountId] || {}
 }

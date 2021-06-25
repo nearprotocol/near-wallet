@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
 import { Translate } from 'react-localize-redux'
 
 import IconsAlertCircleImage from '../../images/icon_alert-circle.svg'
 import IconCheckCircleImage from '../../images/icon-check-circle.svg'
 
-import { clearGlobalAlert } from '../../actions/status'
+import { clearGlobalAlert } from '../../redux/actions/status'
 
 import styled from 'styled-components'
+import connectAccount from '../../redux/connectAccount'
 
 
 const AlertContainer = styled.div`
@@ -189,6 +189,9 @@ const GlobalAlertNew = ({ globalAlert, actionStatus, clearGlobalAlert, closeIcon
     }
 
     useEffect(() => {
+        if (!globalAlert) {
+            return
+        }
         setAlerts(Object.keys(globalAlert)
             .filter((type) => globalAlert[type])
             .reverse()
@@ -266,11 +269,11 @@ const mapDispatchToProps = {
     clearGlobalAlert
 }
 
-const mapStateToProps = ({ status }) => ({
-    ...status
-})
+const mapStateToProps = ({ status }, { statusMain }) => (
+    status || statusMain
+)
 
-export default connect(
+export default connectAccount(
     mapStateToProps,
     mapDispatchToProps
 )(GlobalAlertNew)

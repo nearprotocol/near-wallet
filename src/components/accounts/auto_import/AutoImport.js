@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Container from '../../common/styled/Container.css';
 import { Translate } from 'react-localize-redux';
-import { recoverAccountSeedPhrase, refreshAccount, redirectTo } from '../../../actions/account';
+import { recoverAccountSeedPhrase, refreshAccount, redirectTo } from '../../../redux/actions/account';
 import { Mixpanel } from '../../../mixpanel/index';
 import FormButton from '../../common/FormButton';
 

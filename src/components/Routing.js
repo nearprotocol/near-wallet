@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled, { ThemeProvider } from 'styled-components'
 
@@ -45,7 +44,7 @@ import { BuyNear } from './buy/BuyNear'
 import { SignWithRouter } from './sign/Sign'
 import { StakingContainer } from './staking/StakingContainer'
 import { DISABLE_SEND_MONEY, WALLET_CREATE_NEW_ACCOUNT_FLOW_URLS, IS_MAINNET, SHOW_PRERELEASE_WARNING } from '../utils/wallet'
-import { refreshAccount, handleRefreshUrl, handleRedirectUrl, handleClearUrl, promptTwoFactor } from '../actions/account'
+import { refreshAccount, handleRefreshUrl, handleRedirectUrl, handleClearUrl, promptTwoFactor } from '../redux/actions/account'
 import LedgerConfirmActionModal from './accounts/ledger/LedgerConfirmActionModal';
 
 import GlobalStyle from './GlobalStyle'
@@ -56,6 +55,7 @@ import { handleClearAlert} from '../utils/alerts'
 import { Mixpanel } from "../mixpanel/index";
 import classNames from '../utils/classNames';
 import Terms from './terms/Terms'
+import connectAccount from '../redux/connectAccount'
 
 const theme = {}
 
@@ -182,7 +182,7 @@ class Routing extends Component {
                         <GlobalAlert/>
                         <LedgerConfirmActionModal/>
                         {
-                            this.props.account.requestPending !== null &&
+                            this.props.account && this.props.account.requestPending !== null &&
                             <TwoFactorVerifyModal
                                 onClose={(verified, error) => {
                                     const { account, promptTwoFactor } = this.props
@@ -210,7 +210,7 @@ class Routing extends Component {
                                 exact
                                 path='/' 
                                 component={Wallet}
-                                accountFound={this.props.account.localStorage?.accountFound}
+                                accountFound={this.props.account?.localStorage?.accountFound}
                             />
                             <Route
                                 exact
@@ -376,12 +376,12 @@ const mapDispatchToProps = {
     promptTwoFactor
 }
 
-const mapStateToProps = ({ account, router }) => ({
+const mapStateToProps = ({ account }, { router }) => ({
     account,
     router
 })
 
-export default connect(
+export default connectAccount(
     mapStateToProps,
     mapDispatchToProps
 )(withLocalize(Routing))

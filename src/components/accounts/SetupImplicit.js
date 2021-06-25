@@ -4,7 +4,6 @@ import * as nearApiJs from 'near-api-js'
 import { formatNearAmount, parseNearAmount } from 'near-api-js/lib/utils/format'
 import BN from 'bn.js'
 import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
 import { Translate } from 'react-localize-redux'
 import copyText from '../../utils/copyText'
 import isMobile from '../../utils/isMobile'
@@ -13,12 +12,13 @@ import Container from '../common/styled/Container.css'
 import FormButton from '../common/FormButton'
 import WhereToBuyNearModal from '../common/WhereToBuyNearModal'
 import AccountFundedModal from './AccountFundedModal'
-import { createAccountFromImplicit, redirectTo } from '../../actions/account'
+import { createAccountFromImplicit, redirectTo } from '../../redux/actions/account'
 import { NETWORK_ID, NODE_URL } from '../../utils/wallet'
 import { Mixpanel } from '../../mixpanel'
 import AlertBanner from '../common/AlertBanner'
 import { isMoonpayAvailable, getSignedUrl } from '../../utils/moonpay'
 import MoonPayIcon from '../svg/MoonPayIcon'
+import connectAccount from '../../redux/connectAccount'
 
 const StyledContainer = styled(Container)`
     .account-id-wrapper {
@@ -293,7 +293,7 @@ class SetupImplicit extends Component {
     }
 }
 
-const mapStateToProps = ({ account, status }, { match: { params: { accountId, implicitAccountId, recoveryMethod } } }) => ({
+const mapStateToProps = ({ account, status }, stateMainReducer, { match: { params: { accountId, implicitAccountId, recoveryMethod } } }) => ({
     ...account,
     accountId,
     implicitAccountId,
@@ -301,4 +301,4 @@ const mapStateToProps = ({ account, status }, { match: { params: { accountId, im
     mainLoader: status.mainLoader
 })
 
-export const SetupImplicitWithRouter = connect(mapStateToProps)(withRouter(SetupImplicit))
+export const SetupImplicitWithRouter = connectAccount(mapStateToProps)(withRouter(SetupImplicit))

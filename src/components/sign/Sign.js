@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import BN from 'bn.js'
 import { Translate } from 'react-localize-redux'
@@ -8,8 +7,9 @@ import SignTransferReady from './SignTransferReady'
 import SignTransferSuccess from './SignTransferSuccess'
 import SignTransferCancelled from './SignTransferCancelled'
 import SignTransferTransferring from './SignTransferTransferring'
-import { signAndSendTransactions, redirectTo } from '../../actions/account'
+import { signAndSendTransactions, redirectTo } from '../../redux/actions/account'
 import { Mixpanel } from '../../mixpanel'
+import connectAccount from '../../redux/connectAccount'
 
 class Sign extends Component {
 
@@ -118,12 +118,12 @@ function addQueryParams(baseUrl, queryParams) {
     return url.toString();
 }
 
-const mapStateToProps = ({ account, sign, status }) => ({
+const mapStateToProps = ({ account, status, sign }) => ({
     account,
     ...sign,
     signTxStatus: status.actionStatus.SIGN_AND_SEND_TRANSACTIONS
 })
 
-export const SignWithRouter = connect(
+export const SignWithRouter = connectAccount(
     mapStateToProps
 )(withRouter(Sign))

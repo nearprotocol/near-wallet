@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import { Translate } from 'react-localize-redux'
 import { EXPLORER_URL } from '../../utils/wallet'
@@ -11,7 +10,8 @@ import { Grid } from 'semantic-ui-react'
 
 import styled from 'styled-components'
 
-import { showCustomAlert } from '../../actions/status'
+import { showCustomAlert } from '../../redux/actions/status'
+import connectAccount from '../../redux/connectAccount'
 
 const CustomGrid = styled(Grid)`
     .top-back {
@@ -306,4 +306,4 @@ const mapStateToProps = ({ transactions = [], account }) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LoginDetails))
+export default connectAccount(mapStateToProps, mapDispatchToProps)(withRouter(LoginDetails))

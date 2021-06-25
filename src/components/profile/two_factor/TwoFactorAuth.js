@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Card from '../../common/styled/Card.css';
@@ -8,8 +8,9 @@ import { Translate } from 'react-localize-redux';import { MULTISIG_MIN_AMOUNT } 
 import Balance from '../../common/Balance'
 import { utils } from 'near-api-js'
 import ConfirmDisable from '../hardware_devices/ConfirmDisable'
-import { disableMultisig, loadRecoveryMethods } from '../../../actions/account'
+import { disableMultisig, loadRecoveryMethods } from '../../../redux/actions/account'
 import { actionsPending } from '../../../utils/alerts'
+import { useSelector } from '../../../redux/useSelector';
 
 const Container = styled(Card)`
     margin-top: 30px;

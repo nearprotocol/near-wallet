@@ -6,7 +6,7 @@ import BalanceBox from './BalanceBox'
 import StakingFee from './StakingFee'
 import AlertBanner from './AlertBanner'
 import StakeConfirmModal from './StakeConfirmModal'
-import { redirectTo } from '../../../actions/account'
+import { redirectTo } from '../../../redux/actions/account'
 import { actionsPending } from '../../../utils/alerts'
 import { Mixpanel } from '../../../mixpanel'
 

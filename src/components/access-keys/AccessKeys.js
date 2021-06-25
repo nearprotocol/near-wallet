@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { Translate } from 'react-localize-redux'
 import { withRouter } from 'react-router-dom'
 
-import { getAccessKeys, removeAccessKey } from '../../actions/account'
+import { getAccessKeys, removeAccessKey } from '../../redux/actions/account'
 
 import AccessKeysEmpty from './AccessKeysEmpty'
 import PaginationBlock from '../pagination/PaginationBlock'
 import PageContainer from '../common/PageContainer';
 
 import KeyListItem from '../dashboard/KeyListItem'
+import connectAccount from '../../redux/connectAccount'
 
 class AccessKeys extends Component {
     state = {
@@ -173,7 +173,7 @@ const mapStateToPropsAuthorizedApps = ({ account, status }) => ({
     mainLoader: status.mainLoader
 })
 
-export const AuthorizedAppsWithRouter = connect(
+export const AuthorizedAppsWithRouter = connectAccount(
     mapStateToPropsAuthorizedApps,
     mapDispatchToProps
 )(withRouter(AccessKeys))
@@ -184,7 +184,7 @@ const mapStateToPropsFullAccess = ({ account }) => ({
     title: 'fullAccessKeys.pageTitle'
 })
 
-export const FullAccessKeysWithRouter = connect(
+export const FullAccessKeysWithRouter = connectAccount(
     mapStateToPropsFullAccess,
     mapDispatchToProps
 )(withRouter(AccessKeys))

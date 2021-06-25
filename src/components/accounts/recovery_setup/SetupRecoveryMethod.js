@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Translate } from 'react-localize-redux'
 import { parse as parseQuery } from 'query-string'
@@ -20,19 +19,20 @@ import {
     saveAccount,
     fundCreateAccount,
     validateSecurityCode
-} from '../../../actions/account';
+} from '../../../redux/actions/account';
 import RecoveryOption from './RecoveryOption';
 import FormButton from '../../common/FormButton';
 import EnterVerificationCode from '../EnterVerificationCode';
 import Container from '../../common/styled/Container.css';
 import isApprovedCountryCode from '../../../utils/isApprovedCountryCode'
 import { Mixpanel } from '../../../mixpanel/index'
-import { actionsPending } from '../../../utils/alerts'
-import { showCustomAlert } from '../../../actions/status';
+import { actionsPendingMainReducer } from '../../../utils/alerts'
+import { showCustomAlert } from '../../../redux/actions/status';
 import { isRetryableRecaptchaError } from '../../Recaptcha';
 import { parseSeedPhrase } from 'near-seed-phrase';
 import { KeyPair } from 'near-api-js';
 import { DISABLE_CREATE_ACCOUNT } from '../../../utils/wallet';
+import connectAccount from '../../../redux/connectAccount';
 
 // FIXME: Use `debug` npm package so we can keep some debug logging around but not spam the console everywhere
 const ENABLE_DEBUG_LOGGING = false;
@@ -268,7 +268,7 @@ class SetupRecoveryMethod extends Component {
     checkDisabled = (method) => {
         const { recoveryMethods, activeAccountId } = this.props
         let activeMethods = []
-        if (recoveryMethods[activeAccountId]) {
+        if (recoveryMethods && recoveryMethods[activeAccountId]) {
             activeMethods = recoveryMethods[activeAccountId].filter(method => method.confirmed).map(method => method.kind)
         }
 
@@ -287,6 +287,8 @@ class SetupRecoveryMethod extends Component {
     render() {
         const { option, phoneNumber, email, success, emailInvalid, phoneInvalid, country, isNewAccount } = this.state;
         const { mainLoader, accountId, activeAccountId, ledgerKey, twoFactor } = this.props;
+
+        console.log('mainLoader', mainLoader);
 
         if (!success) {
             return (
@@ -367,7 +369,7 @@ class SetupRecoveryMethod extends Component {
                             color='blue'
                             type='submit'
                             disabled={!this.isValidInput || mainLoader}
-                            sending={actionsPending('INITIALIZE_RECOVERY_METHOD', 'SETUP_RECOVERY_MESSAGE')}
+                            sending={actionsPendingMainReducer('INITIALIZE_RECOVERY_METHOD', 'SETUP_RECOVERY_MESSAGE')}
                             trackingId='SR Click submit button'
                         >
                             <Translate id='button.continue'/>
@@ -410,13 +412,13 @@ const mapDispatchToProps = {
     validateSecurityCode
 }
 
-const mapStateToProps = ({ account, router, recoveryMethods, status }, { match }) => ({
+const mapStateToProps = ({ account, recoveryMethods }, { router, statusMain }, { match }) => ({
     ...account,
     router,
     accountId: match.params.accountId,
-    activeAccountId: account.accountId,
+    activeAccountId: account?.accountId,
     recoveryMethods,
-    mainLoader: status.mainLoader
+    mainLoader: statusMain.mainLoader
 })
 
-export const SetupRecoveryMethodWithRouter = connect(mapStateToProps, mapDispatchToProps)(SetupRecoveryMethod);
+export const SetupRecoveryMethodWithRouter = connectAccount(mapStateToProps, mapDispatchToProps)(SetupRecoveryMethod);

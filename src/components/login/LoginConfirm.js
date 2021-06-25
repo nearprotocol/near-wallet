@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import { Translate } from 'react-localize-redux'
 import { Grid, Input } from 'semantic-ui-react'
 
@@ -9,6 +8,7 @@ import FormButton from '../common/FormButton'
 
 import IconHelp from '../../images/IconHelp'
 import { Mixpanel } from "../../mixpanel/index";
+import connectAccount from '../../redux/connectAccount'
 
 class LoginForm extends Component {
     state = {
@@ -134,4 +134,4 @@ const mapStateToProps = ({ account }) => ({
     account
 })
 
-export default connect(mapStateToProps)(LoginForm)
+export default connectAccount(mapStateToProps)(LoginForm)

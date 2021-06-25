@@ -1,9 +1,8 @@
 import React, { Component, createRef } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Modal, Input } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react'
 import { Translate } from 'react-localize-redux'
-import InfoIcon from '../svg/InfoIcon.js'
 import classNames from '../../utils/classNames'
 
 import { ACCOUNT_CHECK_TIMEOUT, ACCOUNT_ID_SUFFIX } from '../../utils/wallet'

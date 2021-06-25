@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { connect } from 'react-redux';
 import { parse as parseQuery } from 'query-string';
 import Container from '../../common/styled/Container.css';
 import InstructionsModal from './InstructionsModal';
@@ -15,13 +14,14 @@ import {
     checkIsNew,
     fundCreateAccountLedger,
     getLedgerPublicKey
-} from '../../../actions/account'
+} from '../../../redux/actions/account'
 import { ACCOUNT_HELPER_URL, DISABLE_CREATE_ACCOUNT, setKeyMeta } from '../../../utils/wallet'
 import GlobalAlert from '../../common/GlobalAlert'
 import { Mixpanel } from '../../../mixpanel/index'
 import { isRetryableRecaptchaError, Recaptcha } from '../../Recaptcha';
-import { showCustomAlert } from '../../../actions/status';
+import { showCustomAlert } from '../../../redux/actions/status';
 import sendJson from '../../../tmp_fetch_send_json';
+import connectAccount from '../../../redux/connectAccount';
 
 // FIXME: Use `debug` npm package so we can keep some debug logging around but not spam the console everywhere
 const ENABLE_DEBUG_LOGGING = false;
@@ -203,10 +203,10 @@ const SetupLedger = (props) => {
     );
 }
 
-const mapStateToProps = ({ account, status }, { match }) => ({
+const mapStateToProps = ({ account }, { statusMain }, { match }) => ({
     ...account,
     accountId: match.params.accountId,
-    mainLoader: status.mainLoader
+    mainLoader: statusMain?.mainLoader
 })
 
-export const SetupLedgerWithRouter = connect(mapStateToProps)(SetupLedger);
+export const SetupLedgerWithRouter = connectAccount(mapStateToProps)(SetupLedger);

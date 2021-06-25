@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import RecoveryMethod from './RecoveryMethod';
 import {
     deleteRecoveryMethod,
     loadRecoveryMethods
-} from '../../../actions/account';
+} from '../../../redux/actions/account';
 import SkeletonLoading from '../../common/SkeletonLoading';
 import { actionsPending } from '../../../utils/alerts';
 import { Mixpanel } from '../../../mixpanel/index'
+import { useSelector } from '../../../redux/useSelector';
 
 const Container = styled.div`
 

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route, withRouter, Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
 import { KEY_ACTIVE_ACCOUNT_ID } from '../../utils/wallet'
 import { GuestLanding } from '../landing/GuestLanding'
+import connectAccount from '../../redux/connectAccount'
 
 const PrivateRoute = ({component: Component, account, refreshAccountOwnerEnded, ...rest}) => (
     <Route 
@@ -29,4 +29,4 @@ const mapStateToProps = ({ account, status }) => ({
     refreshAccountOwnerEnded: status.actionStatus.REFRESH_ACCOUNT_OWNER?.success === true
 })
 
-export default withRouter(connect(mapStateToProps)(PrivateRoute))
+export default withRouter(connectAccount(mapStateToProps)(PrivateRoute))

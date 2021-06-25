@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { loadRecoveryMethods } from '../actions/account'
+import { useDispatch } from 'react-redux'
+import { loadRecoveryMethods } from '../redux/actions/account'
+import { useSelector } from '../redux/useSelector'
 import { wallet } from '../utils/wallet'
 
 const empty = []

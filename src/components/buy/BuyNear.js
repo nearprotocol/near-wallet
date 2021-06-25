@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import Container from '../common/styled/Container.css'
 import { Translate } from 'react-localize-redux'
@@ -12,6 +11,7 @@ import OkexLogo from '../../images/okex-logo.svg'
 import GateLogo from '../../images/gate-io-logo.svg'
 import { isMoonpayAvailable, getSignedUrl } from '../../utils/moonpay'
 import { Mixpanel } from '../../mixpanel'
+import { useSelector } from '../../redux/useSelector'
 
 const StyledContainer = styled(Container)`
     position: relative;

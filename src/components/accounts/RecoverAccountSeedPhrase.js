@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
 import { Translate } from 'react-localize-redux'
 import styled from 'styled-components'
 import { parse as parseQuery } from 'query-string'
-import { recoverAccountSeedPhrase, redirectToApp, redirectTo, refreshAccount } from '../../actions/account'
-import { staking } from '../../actions/staking'
-import { clearLocalAlert } from '../../actions/status'
+import { recoverAccountSeedPhrase, redirectToApp, redirectTo, refreshAccount } from '../../redux/actions/account'
+import { staking } from '../../redux/actions/staking'
+import { clearLocalAlert } from '../../redux/actions/status'
 import RecoverAccountSeedPhraseForm from './RecoverAccountSeedPhraseForm'
 import Container from '../common/styled/Container.css'
 import { Mixpanel } from '../../mixpanel/index'
+import connectAccount from '../../redux/connectAccount'
 
 const StyledContainer = styled(Container)`
     .input {
@@ -109,15 +109,15 @@ const mapDispatchToProps = {
     clearState: staking.clearState
 }
 
-const mapStateToProps = ({ account, status, router }, { match }) => ({
+const mapStateToProps = ({ account }, { router, statusMain }, { match }) => ({
     ...account,
     router,
     seedPhrase: match.params.seedPhrase || '',
-    localAlert: status.localAlert,
-    mainLoader: status.mainLoader
+    localAlert: statusMain?.localAlert,
+    mainLoader: statusMain?.mainLoader
 })
 
-export const RecoverAccountSeedPhraseWithRouter = connect(
+export const RecoverAccountSeedPhraseWithRouter = connectAccount(
     mapStateToProps, 
     mapDispatchToProps
 )(withRouter(RecoverAccountSeedPhrase))

@@ -100,8 +100,8 @@ class DesktopContainer extends Component {
 
         return (
             <Container>
-                <Logo link={!flowLimitation.mainMenu} />
-                {showNavLinks && !flowLimitation.mainMenu &&
+                <Logo link={!flowLimitation?.mainMenu} />
+                {showNavLinks && !flowLimitation?.mainMenu &&
                     <NavLinks />
                 }
                 <Lang>

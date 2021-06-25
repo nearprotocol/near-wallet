@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Translate } from 'react-localize-redux'
 import { Grid } from 'semantic-ui-react'
@@ -11,6 +10,7 @@ import SelectAccountDropdown from './SelectAccountDropdown'
 
 import IconProblems from '../../images/IconProblems'
 import IconAuthorize from '../../images/IconAuthorize'
+import connectAccount from '../../redux/connectAccount'
 
 const LoginForm = ({
     dropdown,
@@ -170,4 +170,4 @@ const mapStateToProps = ({ account, availableAccounts }) => ({
     availableAccounts
 })
 
-export default connect(mapStateToProps)(withRouter(LoginForm))
+export default connectAccount(mapStateToProps)(withRouter(LoginForm))

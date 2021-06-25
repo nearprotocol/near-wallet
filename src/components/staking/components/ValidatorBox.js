@@ -5,7 +5,7 @@ import ChevronIcon from '../../svg/ChevronIcon'
 import FormButton from '../../common/FormButton'
 import { Translate } from 'react-localize-redux'
 import Balance from '../../common/Balance'
-import { redirectTo } from '../../../actions/account'
+import { redirectTo } from '../../../redux/actions/account'
 import { useDispatch } from 'react-redux'
 import { Mixpanel } from '../../../mixpanel/index'
 
