@@ -8,6 +8,7 @@ import FormButton from '../common/FormButton'
 import { EXPLORER_URL } from '../../utils/wallet'
 import { actionsPending } from '../../utils/alerts'
 import classNames from '../../utils/classNames'
+import { useSelector } from 'react-redux'
 
 const StyledContainer = styled.div`
     width: 100%;
@@ -84,7 +85,8 @@ const StyledContainer = styled.div`
 
 const Activities = ({ transactions, accountId, getTransactionStatus }) => {
     const [transactionHash, setTransactionHash] = useState()
-    const activityLoader = actionsPending(['GET_TRANSACTIONS', 'REFRESH_ACCOUNT_OWNER'])
+    const { balance } = useSelector(({account}) => account)
+    const activityLoader = actionsPending(['GET_TRANSACTIONS', 'REFRESH_ACCOUNT_OWNER']) || !balance.stakedBalanceMainAccount
 
     return (
         <StyledContainer>

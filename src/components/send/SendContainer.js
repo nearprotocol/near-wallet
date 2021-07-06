@@ -84,6 +84,12 @@ export function SendContainer({ match, location }) {
         }
     }, [actionStatus.GET_BALANCE?.success])
 
+    useEffect(() => {
+        if (accountId) {
+            dispatch(getBalance('', true))
+        }
+    }, [accountId])
+
     onKeyDown(e => {
         if (e.keyCode === 13 && sendAllowed) {
             if (!confirm) {
@@ -119,10 +125,10 @@ export function SendContainer({ match, location }) {
         await Mixpanel.withTracking("SEND token", 
             async () => {
                 await dispatch(sendMoney(id, parseNearAmount(amount)))
-                await dispatch(getBalance())
                 setConfirm(false)
                 setSuccess(true)
                 window.scrollTo(0, 0) 
+                await dispatch(getBalance())
             }
         )
     }

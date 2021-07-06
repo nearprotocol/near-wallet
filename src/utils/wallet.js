@@ -30,7 +30,7 @@ export const WALLET_LOGIN_URL = 'login'
 export const WALLET_SIGN_URL = 'sign'
 export const WALLET_LINKDROP_URL = 'linkdrop'
 export const WALLET_RECOVER_ACCOUNT_URL = 'recover-account'
-export const ACCOUNT_HELPER_URL = process.env.REACT_APP_ACCOUNT_HELPER_URL || 'https://near-contract-helper.onrender.com'
+export const ACCOUNT_HELPER_URL = process.env.REACT_APP_ACCOUNT_HELPER_URL || 'https://helper.testnet.near.org'
 export const EXPLORER_URL = process.env.EXPLORER_URL || 'https://explorer.testnet.near.org';
 export const IS_MAINNET = process.env.REACT_APP_IS_MAINNET === 'true' || process.env.REACT_APP_IS_MAINNET === 'yes'
 export const SHOW_PRERELEASE_WARNING = process.env.SHOW_PRERELEASE_WARNING === 'true' || process.env.SHOW_PRERELEASE_WARNING === 'yes'

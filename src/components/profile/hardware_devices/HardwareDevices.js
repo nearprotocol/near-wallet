@@ -72,7 +72,7 @@ const HardwareDevices = ({ recoveryMethods }) => {
     const hasLedger = userRecoveryMethods.filter(method => method.kind === 'ledger').map(key => key.publicKey).some(key => publicKeys.includes(key))
     const ledgerIsConnected = account.ledgerKey;
     const hasLedgerButNotConnected = hasLedger && !ledgerIsConnected
-    const recoveryLoader = (actionsPending('LOAD_RECOVERY_METHODS') && !userRecoveryMethods.length) || !account.accountId
+    const recoveryLoader = (actionsPending('LOAD_RECOVERY_METHODS') && !userRecoveryMethods.length) || !account.accountId || !account.balance.stakedBalanceMainAccount
 
     const handleConfirmDisable = async () => {
         await Mixpanel.withTracking("SR-Ledger Handle confirm disable",

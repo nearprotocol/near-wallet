@@ -180,6 +180,9 @@ export function StakingContainer({ history, match }) {
     const loadingBalance = !stakingAccounts.every((account) => !!account.totalUnstaked)
     const stakeFromAccount = currentAccount.accountId === accountId
 
+    const loading = (status.mainLoader && !stakingAccounts.length) || !balance.stakedBalanceMainAccount
+    const loadingDetails = (status.mainLoader && !stakingAccounts.length) || loadingBalance || !balance.stakedBalanceMainAccount
+
     useEffect(() => {
         if (accountId) {
             dispatch(getBalance())
@@ -223,8 +226,8 @@ export function StakingContainer({ history, match }) {
                                 accounts={stakingAccounts}
                                 activeAccount={currentAccount}
                                 accountId={accountId}
-                                loading={status.mainLoader && !stakingAccounts.length}
-                                loadingDetails={(status.mainLoader && !stakingAccounts.length) || loadingBalance}
+                                loading={loading}
+                                loadingDetails={loadingDetails}
                                 hasLockup={hasLockup}
                                 stakeFromAccount={stakeFromAccount}
                                 selectedValidator={selectedValidator}

@@ -43,7 +43,7 @@ const RecoveryContainer = ({ type, recoveryMethods }) => {
     const currentActiveKinds = new Set(activeMethods.map(method => method.kind));
     const missingKinds = allKinds.filter(kind => !currentActiveKinds.has(kind))
     const deleteAllowed = [...currentActiveKinds].length > 1 || account.ledgerKey;
-    const recoveryLoader = (actionsPending('LOAD_RECOVERY_METHODS') && !userRecoveryMethods.length) || !account.accountId
+    const recoveryLoader = (actionsPending('LOAD_RECOVERY_METHODS') && !userRecoveryMethods.length) || !account.accountId || !account.balance.stakedBalanceMainAccount
     missingKinds.forEach(kind => activeMethods.push({kind: kind}));
 
     const handleDeleteMethod = async (method) => {
