@@ -2601,13 +2601,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/bn.js@^5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@types/bn.js/-/bn.js-5.1.0.tgz#32c5d271503a12653c62cf4d2b45e6eab8cebc68"
-  integrity sha512-QSSVYj7pYFN49kW77o2s9xTCwZ8F2xLbjLLSEVh8D2F4JUhZtPAGOFLTD+ffqksBx/u4cE/KImFjyhqCjn/LIA==
-  dependencies:
-    "@types/node" "*"
-
 "@types/braces@*":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@types/braces/-/braces-3.0.0.tgz#7da1c0d44ff1c7eb660a36ec078ea61ba7eb42cb"
@@ -4061,15 +4054,15 @@ bluebird@^3.3.5, bluebird@^3.5.5:
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
   integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
 
+bn.js@5.2.0, bn.js@^5.0.0, bn.js@^5.1.1:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-5.2.0.tgz#358860674396c6997771a9d051fcc1b57d4ae002"
+  integrity sha512-D7iWRBvnZE8ecXiLj/9wbxH7Tk79fAh8IHaTNq1RWRixsS02W+5qS+iE9yq6RYl0asXx5tw0bLhmT5pIfbSquw==
+
 bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.11.9:
   version "4.12.0"
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.12.0.tgz#775b3f278efbb9718eec7361f483fb36fbbfea88"
   integrity sha512-c98Bf3tPniI+scsdk237ku1Dc3ujXQTSgyiPUDEOe7tRkhrqridvh8klBv0HCEso1OLOYcHuCv/cS6DNxKH+ZA==
-
-bn.js@^5.0.0, bn.js@^5.1.1:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-5.2.0.tgz#358860674396c6997771a9d051fcc1b57d4ae002"
-  integrity sha512-D7iWRBvnZE8ecXiLj/9wbxH7Tk79fAh8IHaTNq1RWRixsS02W+5qS+iE9yq6RYl0asXx5tw0bLhmT5pIfbSquw==
 
 body-parser@1.19.0:
   version "1.19.0"
@@ -4092,10 +4085,10 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
-borsh@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/borsh/-/borsh-0.3.1.tgz#c31c3a149610e37913deada80e89073fb15cf55b"
-  integrity sha512-gJoSTnhwLxN/i2+15Y7uprU8h3CKI+Co4YKZKvrGYUy0FwHWM20x5Sx7eU8Xv4HQqV+7rb4r3P7K1cBIQe3q8A==
+borsh@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/borsh/-/borsh-0.4.0.tgz#9dd6defe741627f1315eac2a73df61421f6ddb9f"
+  integrity sha512-aX6qtLya3K0AkT66CmYWCCDr77qsE9arV05OmdFpmat9qu8Pg9J5tBUPDztAW5fNh/d/MyVG/OYziP52Ndzx1g==
   dependencies:
     "@types/bn.js" "^4.11.5"
     bn.js "^5.0.0"
@@ -9789,14 +9782,13 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
-near-api-js@^0.39.0:
-  version "0.39.0"
-  resolved "https://registry.yarnpkg.com/near-api-js/-/near-api-js-0.39.0.tgz#8c6b040e92f01266f35d358aee3914f26af2d83f"
-  integrity sha512-RX2oLOg438QCY3UQLb6FMkXmInFQIS0S+xg/auNZP292ySsMTKppoD07g/ExEFbW8Uyej8/TvjhBjKxnDBUigQ==
+near-api-js@^0.41.0:
+  version "0.41.0"
+  resolved "https://registry.yarnpkg.com/near-api-js/-/near-api-js-0.41.0.tgz#5e6ebba2eca922b79cb8a05445613e435aa87803"
+  integrity sha512-/dp+1JsKJAvwk4s8bFFZs1K+84lSAqPeQmXTsSGvebJh+cMu+tZsJ8jKnKbmlZ/wUG4VoCimxN8cMru+WkRlwA==
   dependencies:
-    "@types/bn.js" "^5.1.0"
-    bn.js "^5.0.0"
-    borsh "^0.3.1"
+    bn.js "5.2.0"
+    borsh "^0.4.0"
     bs58 "^4.0.0"
     depd "^2.0.0"
     error-polyfill "^0.1.2"
