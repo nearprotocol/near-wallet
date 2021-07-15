@@ -124,7 +124,7 @@ const checkContractId = () => async (dispatch, getState) => {
         }
 
         try {
-            await (await wallet.getAccount(contract_id)).state();
+            await (wallet.getAccountBasic(contract_id)).state();
         } catch (error) {
             if (error.message.indexOf('does not exist while viewing') !== -1) {
                 redirectIncorrectContractId();
