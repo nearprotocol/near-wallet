@@ -13,7 +13,7 @@
     "lodash.throttle": "^4.1.1",
     "mixpanel-browser": "^2.41.0",
     "near-api-js": "^0.39.0",
-    "near-ledger-js": "^0.1.2",
+    "near-ledger-js": "0.2.0",
     "near-seed-phrase": "^0.2.0",
     "prop-types": "^15.7.2",
     "qrcode.react": "^1.0.1",
