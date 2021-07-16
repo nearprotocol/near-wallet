@@ -51,3 +51,5 @@ export default reduceReducers(
 );
 
 export const selectTokensDetails = state => state.tokens.tokens;
+
+export const selectTokenDetails = (state, contractName) => state.tokens.tokens[contractName];

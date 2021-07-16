@@ -133,6 +133,9 @@
         },
         "setupRecoveryMessageNewAccount": {
             "invalidCode": "Invalid code"
+        },
+        "send": {
+            "unsupportedToken": "Could not transfer unsupported token: ${type}"
         }
     },
     "account": {
