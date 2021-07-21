@@ -261,7 +261,7 @@ export function Wallet({ tab, setTab } ) {
     const hideExploreApps = localStorage.getItem('hideExploreApps');
     const linkdropAmount = localStorage.getItem('linkdropAmount');
     const linkdropModal = linkdropAmount && showLinkdropModal !== false;
-    const tokens = useSelector(state => selectTokensDetails(state));
+    const fungibleTokens = useSelector(state => selectTokensDetails(state));
     const nft = useSelector(selectNFT);
     const tokensLoader = actionsPendingByPrefix('TOKENS/') || !balance?.total;
 
@@ -274,8 +274,6 @@ export function Wallet({ tab, setTab } ) {
         }
     }, [accountId]);
 
-    const sortedTokens = Object.keys(tokens).map(key => tokens[key]).sort((a, b) => (a.symbol || '').localeCompare(b.symbol || ''));
-    // TODO: Sort NFTS
     const sortedNFTs = Object.values(nft).sort((a, b) => a.name.localeCompare(b.name));
 
     useEffect(() => {
@@ -322,7 +320,7 @@ export function Wallet({ tab, setTab } ) {
                         : <FungibleTokens
                             balance={balance}
                             tokensLoader={tokensLoader}
-                            sortedTokens={sortedTokens}
+                            fungibleTokens={fungibleTokens}
                         />
 
                     }
@@ -350,7 +348,7 @@ export function Wallet({ tab, setTab } ) {
     );
 }
 
-const FungibleTokens = ({ balance, tokensLoader, sortedTokens, }) => {
+const FungibleTokens = ({ balance, tokensLoader, fungibleTokens }) => {
     return (
         <>
             <NearWithBackgroundIcon/>
@@ -389,7 +387,7 @@ const FungibleTokens = ({ balance, tokensLoader, sortedTokens, }) => {
                 <span className={classNames({ dots: tokensLoader })}><Translate id='wallet.tokens' /></span>
                 <span><Translate id='wallet.balance' /></span>
             </div>
-            <Tokens tokens={sortedTokens} />
+            <Tokens tokens={fungibleTokens} />
         </>
     );
 };

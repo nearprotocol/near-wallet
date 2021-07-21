@@ -29,13 +29,13 @@ const StyledContainer = styled.div`
     }
 `;
 
-const SelectTokenButton = ({ symbol, icon }) => {
+const SelectTokenButton = ({ token, onClick }) => {
     return (
-        <StyledContainer>
+        <StyledContainer onClick={onClick}>
             <Token
                 translateIdTitle='sendV2.selectTokenButtonTitle'
-                symbol={symbol}
-                icon={icon}
+                symbol={token.symbol}
+                icon={token.icon}
             />
             <ChevronIcon color='#0072ce'/>
         </StyledContainer>

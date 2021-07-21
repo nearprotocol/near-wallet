@@ -133,6 +133,9 @@
         },
         "setupRecoveryMessageNewAccount": {
             "invalidCode": "無效驗證碼"
+        },
+        "sendFungibleToken": {
+            "error": "發生錯誤，發送交易取消。"
         }
     },
     "account": {
@@ -475,6 +478,7 @@
         "startOver": "重新開始",
         "copyUrl": "複製鏈接",
         "createAccount": "創建賬戶",
+        "reserveMyAccountId": "保留賬戶 ID", 
         "recoverYourAccount": "恢復賬戶",
         "importExistingAccount": "導入已有賬戶",
         "enable": "啟用",
@@ -483,6 +487,7 @@
         "connectLedger": "綁定 Ledger",
         "connect": "連接",
         "retry": "重試",
+        "tryAgain": "再次嘗試", 
         "browseApps": "瀏覽應用",
         "createAccountCapital": "創建賬戶",
         "findMyAccount": "查找我的賬戶",
@@ -535,7 +540,8 @@
         "buy": "購買",
         "learnMore": "了解更多",
         "viewFAQ": "查看常見問題",
-        "acceptAndContinue": "接受並繼續"
+        "acceptAndContinue": "接受並繼續",
+        "useMax": "最多"
     },
 
     "link": {
@@ -564,6 +570,7 @@
         "accountId": {
             "title": "賬戶 ID",
             "placeholder": "例如：johndoe.near",
+            "placeHolderAlt": "賬戶 ID",
             "subLabel": "你的賬戶 ID 必須是頂級賬戶（如 <b>.near</b>）或 64 位字符的地址。"
         }
     },
@@ -592,6 +599,13 @@
         "actionType": "恢復",
         "actionRequired": "此消息包含恢復鏈接，請點擊鏈接開始恢復賬戶流程！",
         "cannotResend": "此消息是在開啟 Email/手機號恢復時發送。我們只發送一次，並且無法重新發送。"
+    },
+
+    "importAccount": {
+        "withId": "導入賬戶：${accountId}",
+        "noId": "正在導入賬戶",
+        "withIdFailed": "導入賬戶失敗：${accountId}",
+        "noIdFailed": "導入賬戶失敗。"
     },
 
     "createAccount": {
@@ -702,6 +716,7 @@
         "inputPlaceholder": "驗證碼",
         "didNotRecive": "未收到驗證碼？",
         "resendCode": "重新發送",
+        "resending": "正在重新發送...", 
         "or": "或",
         "sendToDifferent": "發送至其他",
         "email": "Email",
@@ -1104,7 +1119,57 @@
             "insufficient": "你將轉賬所有的可用餘額，請至少保留 <b>${data} NEAR</b> 來保證交易費。"
         }
     },
-
+    "sendV2": {
+        "TXEntry": {
+            "title": {
+                "token": "資產",
+                "estimatedFees": "預估費用",
+                "estimatedTotal": "預估總計",
+                "status": "狀態",
+                "amount": "數量",
+                "networkFees": "網絡費用",
+                "receiverId": "發送至",
+                "timeStamp": "日期和時間",
+                "reservedForFees": "保留費用",
+                "availableBalance": "可用餘額",
+                "availableToSend": "可轉賬餘額",
+                "from": "來自",
+                "to": "至"
+            },
+            "status": {
+                "SuccessValue": "成功",
+                "Failure": "失敗",
+                "notAvailable": "狀態不可用"
+            }
+        },
+        "accordionTriggerTitle": {
+            "balanceDetails": "餘額詳情",
+            "transactionDetails": "交易詳情"
+        },
+        "selectTokenButtonTitle": "選擇資產",
+        "selectAsset": {
+            "title": "選擇資產",
+            "assetInputPlaceholder": "搜索資產名稱",
+            "assetListNameTitle": "名稱",
+            "asssetListBalanceTitle": "可轉賬餘額"
+        },
+        "selectReceiver": {
+            "receiverInputLabel": "發送至"
+        },
+        "review": {
+            "title": "你正在發送"
+        },
+        "success": {
+            "title": "交易完成</br>你發送了<span class='color-blue'>${amount}</span></br>至<span class='color-green'>${receiverId }</span>"
+        },
+        "translateIdInfoTooltip": {
+            "estimatedFees": "處理這筆交易的預估費用。",
+            "estimatedTotal": "這筆交易的預估總數，包括費用。",
+            "reservedForFees": "你賬戶餘額中保留的部分，這部分涵蓋了存儲消耗成本。更多信息請訪問 NEAR 文檔。",
+            "networkFees": "涵蓋了處理這筆交易的最終數額。"
+        }
+    },
+    
     "sign": {
         "unexpectedStatus": "意外狀態",
         "transactionCancelled": "交易取消",

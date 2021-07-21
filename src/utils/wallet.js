@@ -170,7 +170,7 @@ class Wallet {
     }
 
     async sendMoney(receiverId, amount) {
-        await (await this.getAccount(this.accountId)).sendMoney(receiverId, amount);
+        return await (await this.getAccount(this.accountId)).sendMoney(receiverId, amount);
     }
 
     isEmpty() {

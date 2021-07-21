@@ -7,6 +7,7 @@ const StyledInput = styled.input`
     padding: 0;
     height: 73px;
     border: 0;
+    background-color: white;
 
     :focus {
         border: 0;
@@ -23,23 +24,34 @@ const StyledInput = styled.input`
 `;
 
 const getFontSize = (charLength) => {
-    const baseSize = 60;
+    let baseSize = 70;
+    
+    if (charLength > 5) {
+        baseSize = 60;
+    }
+
+    if (charLength > 10) {
+        baseSize = 50;
+    }
+
     if (charLength >= baseSize) {
-        charLength = baseSize - 5;
+        charLength = baseSize - 6;
     }
     const fontSize = baseSize - charLength;
     return fontSize;
 };
 
-const AmountInput = ({ value, onChange, error }) => {
+const AmountInput = ({ value, onChange, error, autoFocus = true }) => {
     return (
         <StyledInput
             className={error ? 'error' : ''}
-            style={{ fontSize: `${value.length > 8 ? getFontSize(value.length) : 60}px` }}
+            style={{ fontSize: `${value.length ? getFontSize(value.length) : 70}px` }}
             type='number'
+            step='any'
             placeholder='0'
             value={value}
             onChange={e => onChange(e.target.value)}
+            autoFocus={!value ? autoFocus : false}
         />
     );
 };

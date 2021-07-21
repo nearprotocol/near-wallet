@@ -1069,7 +1069,56 @@
             "insufficient": "Bạn đang gửi toàn bộ số dư khả dụng của mình. Ít nhất <b>${data} NEAR</b> cần được có tại ví để làm phí giao dịch."
         }
     },
-
+    "sendV2": {
+        "TXEntry": {
+            "title": {
+                "token": "Asset",
+                "estimatedFees": "Estimated fees",
+                "estimatedTotal": "Estimated total",
+                "status": "TXN Status",
+                "amount": "Amount",
+                "networkFees": "Network fees",
+                "receiverId": "Sent to",
+                "timeStamp": "Date & time",
+                "reservedForFees": "Reserved for fees",
+                "availableBalance": "Available balance",
+                "availableToSend": "Available to Send",
+                "from": "From",
+                "to": "To"
+            },
+            "status": {
+                "SuccessValue": "Successful",
+                "Failure": "Failed",
+                "notAvailable": "Status not available"
+            }
+        },
+        "accordionTriggerTitle": {
+            "balanceDetails": "Balance details",
+            "transactionDetails": "Transaction Details"
+        },
+        "selectTokenButtonTitle": "Select Asset",
+        "selectAsset": {
+            "title": "Select Asset",
+            "assetInputPlaceholder": "Search asset name",
+            "assetListNameTitle": "Name",
+            "asssetListBalanceTitle": "Available to send"
+        },
+        "selectReceiver": {
+            "receiverInputLabel": "Send to"
+        },
+        "review": {
+            "title": "You are sending"
+        },
+        "success": {
+            "title": "Transaction complete!</br>You sent <span class='color-blue'>${amount}</span></br>to <span class='color-green'>${receiverId}</span>"
+        },
+        "translateIdInfoTooltip": {
+            "estimatedFees": "The estimated cost of processing your transaction.",
+            "estimatedTotal": "The estimated total of your transaction including fees.",
+            "reservedForFees": "The portion of your account balance that cannot be spent. This amount is reserved to cover the storage costs of your account. For more information, visit our documentation.",
+            "networkFees": "The final amount paid to cover the costs of processing your transaction."
+        }
+    },
     "sign": {
         "unexpectedStatus": "Trạng thái không mong đợi",
         "transactionCancelled": "Giao dịch đã được hủy",

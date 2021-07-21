@@ -133,6 +133,9 @@
         },
         "setupRecoveryMessageNewAccount": {
             "invalidCode": "无效验证码"
+        },
+        "sendFungibleToken": {
+            "error": "发生错误，发送交易取消。"
         }
     },
     "account": {
@@ -475,6 +478,7 @@
         "startOver": "重新开始",
         "copyUrl": "复制链接",
         "createAccount": "创建账户",
+        "reserveMyAccountId": "保留账户 ID",
         "recoverYourAccount": "恢复账户",
         "importExistingAccount": "导入已有账户",
         "enable": "启用",
@@ -483,6 +487,7 @@
         "connectLedger": "绑定 Ledger",
         "connect": "连接",
         "retry": "重试",
+        "tryAgain": "再次尝试",
         "browseApps": "浏览应用",
         "createAccountCapital": "创建账户",
         "findMyAccount": "查找我的账户",
@@ -535,7 +540,8 @@
         "buy": "购买",
         "learnMore": "了解更多",
         "viewFAQ": "查看常见问题",
-        "acceptAndContinue": "接受并继续"
+        "acceptAndContinue": "接受并继续",
+        "useMax": "最多"
     },
 
     "link": {
@@ -564,6 +570,7 @@
         "accountId": {
             "title": "账户 ID",
             "placeholder": "例如：johndoe.near",
+            "placeHolderAlt": "账户 ID",
             "subLabel": "你的账户 ID 必须是顶级账户（如 <b>.near</b>）或 64 位字符的地址。"
         }
     },
@@ -592,6 +599,13 @@
         "actionType": "恢复",
         "actionRequired": "此消息包含恢复链接，请点击链接开始恢复账户流程！",
         "cannotResend": "此消息是在开启 Email/手机号恢复时发送。我们只发送一次，并且无法重新发送。"
+    },
+
+    "importAccount": {
+        "withId": "导入账户：${accountId}",
+        "noId": "正在导入账户",
+        "withIdFailed": "导入账户失败：${accountId}",
+        "noIdFailed": "导入账户失败。"
     },
 
     "createAccount": {
@@ -702,6 +716,7 @@
         "inputPlaceholder": "验证码",
         "didNotRecive": "未收到验证码？",
         "resendCode": "重新发送",
+        "resending": "正在重新发送...",
         "or": "或",
         "sendToDifferent": "发送至其他",
         "email": "Email",
@@ -1102,6 +1117,56 @@
         "banner": {
             "useMax": "${data} NEAR 已经为交易费而预留。",
             "insufficient": "你将转账所有的可用余额，请至少保留 <b>${data} NEAR</b> 来保证交易费。"
+        }
+    },
+    "sendV2": {
+        "TXEntry": {
+            "title": {
+                "token": "资产",
+                "estimatedFees": "预估费用",
+                "estimatedTotal": "预估总计",
+                "status": "状态",
+                "amount": "数量",
+                "networkFees": "网络费用",
+                "receiverId": "发送至",
+                "timeStamp": "日期和时间",
+                "reservedForFees": "保留费用",
+                "availableBalance": "可用余额",
+                "availableToSend": "可转账余额",
+                "from": "来自",
+                "to": "至"
+            },
+            "status": {
+                "SuccessValue": "成功",
+                "Failure": "失败",
+                "notAvailable": "状态不可用"
+            }
+        },
+        "accordionTriggerTitle": {
+            "balanceDetails": "余额详情",
+            "transactionDetails": "交易详情"
+        },
+        "selectTokenButtonTitle": "选择资产",
+        "selectAsset": {
+            "title": "选择资产",
+            "assetInputPlaceholder": "搜索资产名称",
+            "assetListNameTitle": "名称",
+            "asssetListBalanceTitle": "可转账余额"
+        },
+        "selectReceiver": {
+            "receiverInputLabel": "发送至"
+        },
+        "review": {
+            "title": "你正在发送"
+        },
+        "success": {
+            "title": "交易完成</br>你发送了 <span class='color-blue'>${amount}</span></br>至 <span class='color-green'>${receiverId}</span>"
+        },
+        "translateIdInfoTooltip": {
+            "estimatedFees": "处理这笔交易的预估费用。",
+            "estimatedTotal": "这笔交易的预估总数，包括费用。",
+            "reservedForFees": "你账户余额中保留的部分，这部分涵盖了存储消耗成本。更多信息请访问 NEAR 文档。",
+            "networkFees": "涵盖了处理这笔交易的最终数额。"
         }
     },
 

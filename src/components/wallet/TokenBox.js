@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import isDataURL from '../../utils/isDataURL';
 import { EXPLORER_URL } from '../../utils/wallet';
-import DefaultTokenIcon from '../svg/DefaultTokenIcon';
+import Balance from '../common/Balance';
+import TokenIcon from '../send/components/TokenIcon';
 import TokenAmount from './TokenAmount';
 
 const StyledContainer = styled.div`
@@ -20,9 +20,11 @@ const StyledContainer = styled.div`
         padding: 15px 20px;
     }
 
-    .symbol {
+    .icon {
         width: 33px;
         height: 33px;
+        min-width: 33px;
+        min-height: 33px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -39,34 +41,29 @@ const StyledContainer = styled.div`
         flex-direction: column;
         margin-left: 14px;
 
-        span {
-            :first-of-type {
-                font-weight: 700;
-                font-size: 16px;
-                color: #24272a;
+        .symbol {
+            font-weight: 700;
+            font-size: 16px;
+            color: #24272a;
+        }
+
+        .contract-link {
+            font-size: 12px;
+            color: #72727A;
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            @media (max-width: 500px) {
+                max-width: 180px;
             }
-            :last-of-type {
-                font-size: 12px;
-                color: #72727A;
-                max-width: 350px;
-                overflow: hidden;
-                text-overflow: ellipsis;
 
-                @media (max-width: 991px) {
-                    max-width: 250px;
-                }
+            @media (max-width: 330px) {
+                max-width: 150px;
+            }
 
-                @media (max-width: 500px) {
-                    max-width: 180px;
-                }
-
-                @media (max-width: 330px) {
-                    max-width: 150px;
-                }
-
-                a {
-                    color: inherit;
-                }
+            a {
+                color: inherit;
             }
         }
     }
@@ -113,28 +110,32 @@ const StyledContainer = styled.div`
     }
 `;
 
-const TokenBox = ({ token }) => {
+const TokenBox = ({ token, onClick }) => {
+    const explorerContractLink = `${EXPLORER_URL}/accounts/${token.contractName}`;
+
     return (
-        <StyledContainer className='token-box'>
-            <div className='symbol'>
-                {token.icon && isDataURL(token.icon) ?
-                    <img src={token.icon} alt={token.name}/>
-                    :
-                    <DefaultTokenIcon/>
-                }
+        <StyledContainer className='token-box' onClick={() => onClick(token)}>
+            <div className='icon'>
+                <TokenIcon symbol={token.symbol} icon={token.icon}/>
             </div>
             <div className='desc'>
-                <span>{token.symbol}</span>
-                <span title={token.contractName}>
-                    <a href={`${EXPLORER_URL}/accounts/${token.contractName}`} target='_blank' rel='noopener noreferrer'>
+                <span className='symbol'>{token.symbol}</span>
+                <span className='contract-link' title={token.contractName}>
+                    <a href={explorerContractLink} target='_blank' rel='noopener noreferrer'>
                         {token.contractName}
                     </a>
                 </span>
             </div>
-            <TokenAmount 
-                token={token} 
-                className='balance'
-            />
+            {token.symbol === 'NEAR' && !token.contractName ?
+                <div className='balance'>
+                    <Balance amount={token.balance} symbol={false}/>
+                </div>
+                :
+                <TokenAmount 
+                    token={token} 
+                    className='balance'
+                />
+            }
         </StyledContainer>
     );
 };

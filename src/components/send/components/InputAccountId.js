@@ -42,6 +42,7 @@ const InputWrapper = styled.div`
         text-align: right;
         border: 0;
         padding-right: 15px;
+        background-color: transparent;
 
         &:focus {
             box-shadow: none;
@@ -49,8 +50,8 @@ const InputWrapper = styled.div`
     }
 
     .check-circle-icon {
-        width: 19px;
-        height: 19px;
+        width: 18px;
+        height: 18px;
     }
 
     .success-prefix {
@@ -58,7 +59,7 @@ const InputWrapper = styled.div`
         pointer-events: none;
         top: 50%;
         transform: translateY(-50%);
-        height: 19px;
+        height: 18px;
         opacity: 0;
         margin-top: 1px;
         visibility: hidden;
@@ -85,7 +86,7 @@ const InputWrapper = styled.div`
         }
     }
 `;
-class AccountIDInput extends Component {
+class InputAccountId extends Component {
     state = {
         wrongChar: false
     }
@@ -177,7 +178,10 @@ class AccountIDInput extends Component {
         const {
             disabled,
             localAlert,
-            accountId
+            accountId,
+            onFocus,
+            onBlur,
+            autoFocus
         } = this.props;
 
         const { wrongChar } = this.state;
@@ -192,7 +196,7 @@ class AccountIDInput extends Component {
                             value={accountId}
                             onInput={(e) => this.updatePrefix(e.target.value)}
                             onChange={e => this.handleChangeAccountId({ userValue: e.target.value, el: e.target })}
-                            placeholder={translate('input.accountId.placeholder')}
+                            placeholder={translate('input.accountId.placeHolderAlt')}
                             required
                             autoComplete='off'
                             autoCorrect='off'
@@ -200,6 +204,9 @@ class AccountIDInput extends Component {
                             spellCheck='false'
                             tabIndex='1'
                             disabled={disabled}
+                            autoFocus={autoFocus}
+                            onBlur={onBlur}
+                            onFocus={onFocus}
                         />
                         <span className='success-prefix' ref={this.prefix}>
                             <CheckCircleIcon color='#00C08B' />
@@ -211,4 +218,6 @@ class AccountIDInput extends Component {
     }
 }
 
-export default AccountIDInput;
+export default InputAccountId;
+
+// TODO: Add required props for: accountId, onChange, localAlert, clearLocalAlert, checkAvailability

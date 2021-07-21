@@ -14,7 +14,7 @@ const LocalAlertBoxContainer = styled.div`
         color: #ff585d;
     }
     &.success {
-        color: #6ad1e3;
+        color: #00C08B;
     }
 
     &.dots {

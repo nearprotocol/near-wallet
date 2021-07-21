@@ -180,18 +180,19 @@ export default createGlobalStyle`
         font-size: 16px;
         width: 100%;
         height: 48px;
-        border: 2px solid #E4E4E6;
+        border: 2px solid #FAFAFA;
         padding: 0 0 0 15px;
         color: #24272A;
-        font-weight: 300;
+        font-weight: normal;
         position: relative;
         margin-top: 8px;
         outline: none;
         appearance: none;
         border-radius: 8px;
+        background-color: #FAFAFA;
 
         ::placeholder {
-            color: #999999;
+            color: #A2A2A8;
         }
 
         :focus {
@@ -227,7 +228,7 @@ export default createGlobalStyle`
         }
 
         &.success {
-            border: 2px solid #6ad1e3;
+            border: 2px solid #00C08B;
 
             &:focus {
                 box-shadow: 0px 0px 0px 2pt #c2f6ff;
@@ -252,7 +253,7 @@ export default createGlobalStyle`
         margin-top: 10px;
 
         &.success {
-            color: #6AD1E3;
+            color: #00C08B;
         }
 
         &.error {
@@ -290,12 +291,13 @@ export default createGlobalStyle`
     .success > .input > input,
     .success > .input > input:focus,
     .success > input {
-        border: 2px solid #6ad1e3;
+        border: 2px solid #00C08B;
+        background-color: white;
     }
 
     .success > .input > input:focus,
     .success > input:focus {
-        box-shadow: 0px 0px 0px 2pt #c2f6ff;
+        box-shadow: 0px 0px 0px 2pt #c5ffef;
     }
 
     b {
@@ -325,7 +327,7 @@ export default createGlobalStyle`
         color: #ff585d !important;
     }
     .color-green {
-        color: #5ace84 !important;
+        color: #00C08B !important;
     }
 
     .ui.popup > .header {

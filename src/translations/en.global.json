@@ -133,6 +133,9 @@
         },
         "setupRecoveryMessageNewAccount": {
             "invalidCode": "Invalid code"
+        },
+        "sendFungibleToken": {
+            "error": "An error occured. Your send transaction was cancelled."
         }
     },
     "account": {
@@ -537,7 +540,8 @@
         "buy": "Buy",
         "learnMore": "Learn More",
         "viewFAQ": "View FAQ",
-        "acceptAndContinue": "Accept & Continue"
+        "acceptAndContinue": "Accept & Continue",
+        "useMax": "Use Max"
     },
 
     "link": {
@@ -566,6 +570,7 @@
         "accountId": {
             "title": "Account ID",
             "placeholder": "e.g. johndoe.near",
+            "placeHolderAlt": "Account ID",
             "subLabel": "The account ID must include a Top Level Account such as <b>.near</b> or contain exactly 64 characters."
         }
     },
@@ -1141,7 +1146,28 @@
             "balanceDetails": "Balance details",
             "transactionDetails": "Transaction Details"
         },
-        "selectTokenButtonTitle": "Select Asset"
+        "selectTokenButtonTitle": "Select Asset",
+        "selectAsset": {
+            "title": "Select Asset",
+            "assetInputPlaceholder": "Search asset name",
+            "assetListNameTitle": "Name",
+            "asssetListBalanceTitle": "Available to send"
+        },
+        "selectReceiver": {
+            "receiverInputLabel": "Send to"
+        },
+        "review": {
+            "title": "You are sending"
+        },
+        "success": {
+            "title": "Transaction complete!</br>You sent <span class='color-blue'>${amount}</span></br>to <span class='color-green'>${receiverId}</span>"
+        },
+        "translateIdInfoTooltip": {
+            "estimatedFees": "The estimated cost of processing your transaction.",
+            "estimatedTotal": "The estimated total of your transaction including fees.",
+            "reservedForFees": "The portion of your account balance that cannot be spent. This amount is reserved to cover the storage costs of your account. For more information, visit our documentation.",
+            "networkFees": "The final amount paid to cover the costs of processing your transaction."
+        }
     },
 
     "sign": {

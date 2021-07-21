@@ -8,35 +8,49 @@ import Amount from './entry_types/Amount';
 
 const prefixTXEntryTitledId = (key) => `sendV2.TXEntry.title.${key}`;
 
-const BalanceDetails = () => {
+const BalanceDetails = ({ 
+    availableToSend,
+    availableBalance,
+    reservedForFees,
+    selectedToken
+}) => {
     const [open, setOpen] = useState(false);
-    
+
+    const showBreakDown = selectedToken.symbol === 'NEAR';
+
+    /* TODO: Add error state */
     return (
         <Breakdown className={classNames(['available-to-send-breakdown' , open ? 'open' : ''])}>
             <Amount
                 translateIdTitle={prefixTXEntryTitledId('availableToSend')}
-                amount='200000000000000000000'
+                amount={availableToSend}
+                symbol={selectedToken.symbol}
+                decimals={selectedToken.decimals}
             />
-            <Accordion
-                trigger='available-to-send-breakdown'
-                className='breakdown'
-            >
-                <Amount
-                    translateIdTitle={prefixTXEntryTitledId('availableBalance')}
-                    amount='500000000000000000000'
-                />
-                <Amount
-                    translateIdTitle={prefixTXEntryTitledId('reservedForFees')}
-                    amount='9900000000000000000000'
-                    translateIdInfoTooltip='profile.security.mostSecureDesc'
-                />
-            </Accordion>
-            <AccordionTrigger
-                id='available-to-send-breakdown'
-                translateIdTitle='sendV2.accordionTriggerTitle.balanceDetails'
-                open={open}
-                onClick={() => setOpen(!open)}
-            />
+            {showBreakDown &&
+                <>
+                    <Accordion
+                        trigger='available-to-send-breakdown'
+                        className='breakdown'
+                    >
+                        <Amount
+                            translateIdTitle={prefixTXEntryTitledId('availableBalance')}
+                            amount={availableBalance}
+                        />
+                        <Amount
+                            translateIdTitle={prefixTXEntryTitledId('reservedForFees')}
+                            amount={reservedForFees}
+                            translateIdInfoTooltip='sendV2.translateIdInfoTooltip.reservedForFees'
+                        />
+                    </Accordion>
+                    <AccordionTrigger
+                        id='available-to-send-breakdown'
+                        translateIdTitle='sendV2.accordionTriggerTitle.balanceDetails'
+                        open={open}
+                        onClick={() => setOpen(!open)}
+                    />
+                </>
+            }
         </Breakdown>
     );
 };

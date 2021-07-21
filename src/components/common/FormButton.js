@@ -16,7 +16,7 @@ const CustomButton = styled(Button)`
         margin: 24px 0 0 0;
         border: 2px solid;
         font-weight: 600;
-        height: 48px;
+        height: 56px;
         border-radius: 30px;
         
         font-size: 15px;
@@ -46,17 +46,55 @@ const CustomButton = styled(Button)`
             }
         }
 
+        &.dark-gray {
+            background-color: #272729;
+            border-color: #272729;
+            transition: 100ms;
+
+            :hover {
+                background-color: black;
+            }
+
+            :disabled {
+                background: #e6e6e6;
+                border-color: #e6e6e6;
+                opacity: 1 !important;
+                color: #A2A2A8;
+            }
+        }
+
+        &.gray-gray {
+            background-color: #F0F0F1;
+            border-color: #F0F0F1;
+            color: #3F4045;
+            transition: 100ms;
+
+            :hover {
+                background-color: #ececec;
+            }
+
+            :disabled {
+                opacity: 0.8;
+            }
+        }
+
         &.light-blue {
-            background-color: #F0F9FF !important;
+            background-color: #D6EDFF !important;
             border: 0;
-            color: #0072ce;
+            color: #005497;
             border-radius: 4px;
 
             &.small {
                 padding: 6px 12px;
                 height: auto;
                 font-weight: 400 !important;
-                font-size: 13px;
+                font-size: 12px;
+            }
+
+            &.rounded {
+                border-radius: 50px;
+                padding: 12px 15px;
+                width: auto;
             }
         }
 
@@ -289,11 +327,11 @@ const CustomButton = styled(Button)`
             }
 
             &.gray {
-                color: #999;
+                color: #72727A;
 
                 :hover,
                 :focus {
-                    color: #999;
+                    color: #72727A;
                 }
             }
 

@@ -41,11 +41,11 @@ const StyledContainer = styled.div`
         padding: 15px;
         font-size: 16px;
         margin-top: 10px;
+        line-break: anywhere;
     }
 `;
 
 const AccountId = ({ accountId }) => {
-    /* TODO: Handle long Account ID */
     return (
         <StyledContainer>
             <div className='top'>
