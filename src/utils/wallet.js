@@ -932,7 +932,7 @@ class Wallet {
         }
     }
 
-    async signAndSendTransactions(transactions, accountId) {
+    async signAndSendTransactions(transactions, accountId = this.accountId) {
         const account = await this.getAccount(accountId);
 
         store.dispatch(setSignTransactionStatus('in-progress'));
